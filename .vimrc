@@ -387,8 +387,6 @@ let g:airline_fugitive_prefix = '  '
 let g:airline_readonly_symbol = ''
 " let g:airline_linecolumn_prefix = ' '
 
-let g:airline_enable_syntastic = 1
-
 let g:airline_theme='jellybeans'
 
 " }}}
