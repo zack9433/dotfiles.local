@@ -1,65 +1,76 @@
 " .vimrc by othree ( othree AT gmail DOT com )
 
 " Vundle
-" git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
+" git clone http://github.com/gmarik/vundle.git ~/.nvim/bundle/vundle
 
-set nocompatible               " be iMproved
 filetype off                   " required!
 
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+set rtp+=~/.nvim/bundle/Vundle.vim
+call vundle#begin('~/.nvim/bundle')
 
 " let Vundle manage Vundle
 Plugin 'gmarik/vundle'
 
-" Colors
-Plugin 'jellybeans.vim'
+" Colors scheme
+Plugin 'kristijanhusak/vim-hybrid-material'
+Plugin 'chriskempson/base16-vim'
 
+" Status line
+" Plugin 'itchyny/lightline.vim'
 Plugin 'bling/vim-airline'
 
 " Improve
-Plugin 'maxbrunsfeld/vim-yankstack'
 Plugin 'VisIncr'
+Plugin 'maxbrunsfeld/vim-yankstack'
 Plugin 'junegunn/vim-easy-align'
-Plugin 'othree/eregex.vim'
-Plugin 'kien/ctrlp.vim'
-Plugin 'mbbill/undotree'
-Plugin 'spiiph/vim-space'
+" Plugin 'othree/eregex.vim'
+" Plugin 'kien/ctrlp.vim'
+" Plugin 'FelikZ/ctrlp-py-matcher'
 Plugin 'AndrewRadev/switch.vim'
-Plugin 'Raimondi/delimitMate'
 Plugin 'terryma/vim-expand-region'
-Plugin 'lfilho/cosco.vim'
-Plugin 'rstacruz/vim-closer'
+" Plugin 'mhinz/vim-startify'
+Plugin 'tpope/vim-fugitive'
+Plugin 'gregsexton/MatchTag'
+Plugin 'AndrewRadev/splitjoin.vim'
+Plugin 'ConradIrwin/vim-bracketed-paste'
+Plugin 'justincampbell/vim-eighties'
+Plugin 'tpope/vim-dispatch'
+Plugin 'blueyed/vim-diminactive'
+
+" Unite
+Plugin 'Shougo/vimproc.vim'
+Plugin 'Shougo/unite.vim'
+Plugin 'tacroe/unite-mark'
+Plugin 'h1mesuke/unite-outline'
+Plugin 'Shougo/neomru.vim'
+Plugin 'rstacruz/vim-fastunite'
 
 " Complete
 Plugin 'Valloric/YouCompleteMe'
 Plugin 'marijnh/tern_for_vim'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim.git'
-Plugin 'honza/vim-snippets'
-Plugin 'garbas/vim-snipmate'
 Plugin 'airblade/vim-gitgutter'
+Plugin 'tpope/vim-surround'
+Plugin 'mattn/emmet-vim'
+Plugin 'othree/jspc.vim'
+Plugin 'tpope/vim-endwise'
+Plugin 'honza/vim-snippets'
+Plugin 'SirVer/ultisnips'
+Plugin 'jiangmiao/auto-pairs'
 
 Plugin 'Lokatog/vim-easymotion'
-
 Plugin 'scrooloose/nerdcommenter'
 Plugin 'scrooloose/nerdtree'
 Plugin 'scrooloose/syntastic'
 
-" Tim Pope
-Plugin 'tpope/vim-surround'
-
 " Filetype
-Plugin 'SyntaxRange'
-Plugin 'mattn/emmet-vim'
 Plugin 'othree/html5.vim'
 Plugin 'othree/xml.vim'
 
 " JavaScript
+Plugin 'elzr/vim-json'
 Plugin 'othree/vim-javascript-syntax'
-Plugin 'JSON.vim'
 Plugin 'othree/javascript-libraries-syntax.vim'
-Plugin 'othree/jspc.vim'
+Plugin 'moll/vim-node'
 
 " CoffeeScript
 Plugin 'kchmck/vim-coffee-script'
@@ -67,9 +78,8 @@ Plugin 'kchmck/vim-coffee-script'
 Plugin 'nginx.vim'
 
 " CSS, SCSS
-Plugin 'rstacruz/vim-css-shorthand'
 Plugin 'hail2u/vim-css3-syntax'
-Plugin 'ap/vim-css-color'
+Plugin 'gorodinskiy/vim-coloresque'
 Plugin 'cakebaker/scss-syntax.vim'
 
 " Markdown
@@ -96,13 +106,8 @@ Plugin 'vim-scripts/gitignore'
 " Seamless navigation between tmux panes and vim splits
 Plugin 'christoomey/vim-tmux-navigator'
 
-Plugin 'Shutnik/jshint2.vim'
-
 " Dockerfile syntax
 Plugin 'ekalinin/Dockerfile.vim'
-
-" Wakatime
-Plugin 'wakatime/vim-wakatime'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -114,7 +119,9 @@ filetype on
 filetype plugin on
 filetype indent on
 set background=dark
-colors jellybeans
+let base16colorspace=256
+colorscheme base16-material
+hi clear SignColumn
 language message zh_TW.UTF-8
 
 set nocompatible
@@ -133,21 +140,41 @@ set smartindent
 set cindent
 set hlsearch
 set foldmethod=marker
-set backspace=indent,eol,start whichwrap+=<,>,[,]
+" set backspace=indent,eol,start whichwrap+=<,>,[,]
+set backspace=indent,eol,start
 set hidden
 set nobomb
 set hlsearch
 set nobackup
-set backupcopy=yes
+" set backupcopy=yes
 set noswapfile
 set textwidth=80
+set noshowmode
+set nostartofline                                                               "Jump to first non-blank character
+set timeoutlen=1000 ttimeoutlen=200                                             "Reduce Command timeout for faster escape and O
+" set lazyredraw                                                                  "Do not redraw on registers and macros
+set splitright                                                                  "Set up new splits positions
+set autoread
+"Disable preview for autocomplete
+set completeopt-=preview
+set fileformats+=mac
+set sessionoptions-=options
+set showcmd
+set wildmenu
+set nrformats-=octal
+set incsearch
+set confirm
+" Smart case search if there is uppercase
+set smartcase
+set ignorecase
+
 
 " set guicolors
+" set guifont=inconsolata\ for\ powerline\ 12                                     "font setup
+" let g:hybrid_use_xresources = 1
+let g:enable_bold_font = 1
 
 let mapleader = ","
-
-" Status Line
-set laststatus=2
 
 " Encoding
 set encoding=utf-8
@@ -156,9 +183,9 @@ set ambiwidth=double
 set t_Co=256
 
 " Status Line
-" set laststatus=2
+set laststatus=2
 " set statusline=%f\ %y%r%1*%m%*\ %{g:HahHah()}%=%<\ [%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ x%02B\ %4c\ %4l\ [%P]
-" " set statusline=%=%{g:HahHah()}
+" set statusline=%=%{g:HahHah()}
 
 " Special File Types
 au BufRead,BufNewFile *nginx* set ft=nginx
@@ -168,6 +195,8 @@ au BufRead,BufNewFile *.tpl set ft=html
 au BufRead,BufNewFile *.xsl set ft=html
 au BufRead,BufNewFile *.json set syntax=json
 au BufRead,BufNewFile *.n3  set ft=n3
+au BufRead,BufNewFile .eslintrc set syntax=json
+au BufRead,BufNewFile .jshintrc set syntax=json
 au BufRead,BufNewFile /usr/local/etc/nginx/* set ft=nginx
 au BufRead,BufNewFile /etc/nginx/* set ft=nginx
 au BufRead,BufNewFile *.hbs set ft=handlebars
@@ -180,6 +209,7 @@ au BufNewFile,BufReadPost *.ls setl foldmethod=indent nofoldenable
 au WinLeave * set nocursorline
 au WinEnter * set cursorline
 set cursorline
+set gcr=a:blinkon500-blinkwait500-blinkoff500
 
 " highlight the 80th column
 "
@@ -187,7 +217,8 @@ set cursorline
 if exists('+colorcolumn')
   " (I picked 120-320 because you have to provide an upper bound and 500 seems
   " to be enough.)
-  let &colorcolumn="80,".join(range(120,500),",")
+  " let &colorcolumn="80,".join(range(120,500),",")
+  set colorcolumn=80
 else
   " fallback for Vim < v7.3
   autocmd BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
@@ -196,7 +227,7 @@ endif
 " Color Tweak for highlight
 " highlight CursorLine    ctermbg=89
 " highlight Comment       ctermfg=246
-highlight ColorColumn   ctermbg=235 guibg=#2c2d27
+" highlight ColorColumn   ctermbg=235 guibg=#2c2d27
 
 " }}}
 
@@ -204,13 +235,8 @@ highlight ColorColumn   ctermbg=235 guibg=#2c2d27
 "" omnifunc setting
 setlocal omnifunc=syntaxcomplete#Complete
 autocmd FileType python set omnifunc=pythoncomplete#Complete
-" autocmd FileType javascript set omnifunc=jscomplete#CompleteJS
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags noci
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS noci
-"autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags noci
-"autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-"autocmd FileType c set omnifunc=ccomplete#Complete
-"autocmd FileType cpp set omnifunc=ccomplete#Complete
 autocmd FileType python set complete+=k~/.vim/syntax/python.vim isk+=.,(
 autocmd FileType scss set sw=2
 
@@ -227,13 +253,17 @@ let g:omni_syntax_group_include_javascript = 'javascript\w\+,jquery\w\+,undersco
 " }}}
 
 " NERDTree: {{{
-" NERDtree settings
 let NERDTreeShowHidden=1
 let g:nerdtree_tabs_open_on_console_startup = 1
 let g:nerdtree_tabs_open_on_gui_startup = 1
 let g:nerdtree_tabs_no_startup_for_diff = 1
 let g:nerdtree_tabs_smart_startup_focus = 1
 let g:nerdtree_tabs_autoclose = 1
+let g:WebDevIconsNerdTreeAfterGlyphPadding = ' '                                "Set up spacing for sidebar icons
+" autocmd StdinReadPre * let s:std_in=1
+" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+nmap <leader>nt :NERDTreeToggle<cr>
 " }}}
 
 " YouCompleteMe: {{{
@@ -251,15 +281,6 @@ let g:ycm_semantic_triggers =  {
 
 " JS Libs: {{{
 let g:used_javascript_libs = 'angularjs,backbone,jquery,lodash,requirejs'
-" }}}
-
-" Screen Fix: {{{
-if &term =~ '^screen'
-    set t_k1=[11~
-    set t_k2=[12~
-    set t_k3=[13~
-    set t_k4=[14~
-endif
 " }}}
 
 " QuickFix: {{{
@@ -302,14 +323,11 @@ map Q <Nop>
 
 "" function keys
 nmap <F2>  :set nonumber!<CR>
-nmap <F3>  :set nopaste!<CR>
 nmap <F4>  :set spell!<CR>
 " Leave F5 for ctrlp
 nmap <F6>  :set wrap!<CR>
 nmap <F7>  :QFix<CR>
-nmap <F8>  :UndotreeToggle<CR>
 nmap <F12> :tab ball<CR>
-" F12 > JSLint
 
 "" tab to indent
 nmap <tab> V>
@@ -331,13 +349,6 @@ imap <C-End> <Esc>G<End>i
 "inoremap <Down> <C-O>gj
 "inoremap <Up>   <C-O>gk
 
-"" Fix up/down in popup
-" inoremap <silent><expr><Up> pumvisible() ? "<Up>" : "<C-O>gk"
-" inoremap <silent><expr><Down> pumvisible() ? "<Down>" : "<C-O>gj"
-" inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
-" autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-" autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-
 "" tab control
 "" http://c9s.blogspot.com/2007/08/vim-my-key-mapping-for-tabs.html
 nmap    <leader>tn    :tabnew<cr>
@@ -345,102 +356,63 @@ nmap    <leader>te    :tabedit
 nmap    <leader>tx    :tabedit .<cr>
 nmap    <leader>th    :tab help<cr>
 
-" nmap    <C-t>     :tabnew<cr>
-" nmap    <C-w>     :tabc<cr>
-
-nmap    <C-left>  :tabp<cr>
-nmap    <C-right> :tabn<cr>
-
-imap    <C-j>  <ESC>:tabn<CR>
-nmap    <C-j>  :tabn<CR>
-imap    <C-k>  <ESC>:tabp<CR>
-nmap    <C-k>  :tabp<CR>
-
 cmap w!! %!sudo tee > /dev/null %
 
-"" keypad
-"" http://vim.wikia.com/wiki/PuTTY_numeric_keypad_mappings
-imap <Esc>Oq 1
-imap <Esc>Or 2
-imap <Esc>Os 3
-imap <Esc>Ot 4
-imap <Esc>Ou 5
-imap <Esc>Ov 6
-imap <Esc>Ow 7
-imap <Esc>Ox 8
-imap <Esc>Oy 9
-imap <Esc>Op 0
-imap <Esc>On .
-imap <Esc>OQ /
-imap <Esc>OR *
-imap <Esc>Ol +
-imap <Esc>OS -
-
 " ctags
-nnoremap <leader>. :CtrlPTag<cr>
-nnoremap <silent> <Leader>b :TagbarToggle<CR>
+" nnoremap <leader>. :CtrlPTag<cr>
+" nnoremap <silent> <Leader>b :TagbarToggle<CR>
 
-let NERDMapleader='<Leader>c'
-
-" switch
-nnoremap <leader>- :Switch<cr>
 "}}}
 
 " Airline: {{{
-
-let g:airline_left_sep = ''
-" let g:airline_right_sep = ''
-let g:airline_fugitive_prefix = '  '
-let g:airline_readonly_symbol = ''
-" let g:airline_linecolumn_prefix = ' '
-
-let g:airline_enable_syntastic = 1
-
-let g:airline_theme='jellybeans'
-
-" }}}
-
-" SyntaxRange {{{
-
-autocmd FileType html call SyntaxRange#Include('/<script[^>]*>/', '</script>', 'javascript', 'htmlTagName')
-autocmd FileType html call SyntaxRange#Include('/<style[^>]*>/', '</style>', 'css', 'htmlTagName')
-
-" }}}
+let g:airline_powerline_fonts = 1                                               "Enable powerline fonts
+let g:airline_theme = "hybrid"                                                  "Set theme to powerline default theme
+let g:airline_section_y = '%{(&fenc == "" ? &enc : &fenc)}'                     "set encoding type info
+let g:airline_section_z = '%{substitute(getcwd(), expand("$HOME"), "~", "g")}'  "Set relative path
+let g:airline#extensions#whitespace#enabled = 0                                 "Disable whitespace extension
+let g:airline#extensions#tabline#enabled = 1                                    "Enable tabline extension
+let g:airline#extensions#tabline#left_sep = ' '                                 "Left separator for tabline
+let g:airline#extensions#tabline#left_alt_sep = '│'                             "Right separator for tabline
+"}}}
 
 " Emmet: {{{
 let g:user_emmet_install_global = 0
 autocmd FileType html,css EmmetInstall
 " }}}
 
-" YankStack: {{{
-let g:yankstack_map_keys = 0
-nmap <leader>p <Plug>yankstack_substitute_older_paste
-nmap <leader>P <Plug>yankstack_substitute_newer_paste
+" UltiSnips: {{{
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 " }}}
 
 " Syntastic: {{{
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" set statusline+=%#warningmsg#
+" set statusline+=%{SyntasticStatuslineFlag()}
+" set statusline+=%*
+let g:syntastic_enable_signs = 1
+let g:syntastic_error_symbol = "x"
+let g:syntastic_style_error_symbol = "x"
+let g:syntastic_warning_symbol = "▵"
+let g:syntastic_style_warning_symbol = "▵"
+let g:syntastic_loc_list_height = 5                                             "Height of the errors window
+let g:syntastic_always_populate_loc_list = 1                                    "Always popuplate syntastic error list
+let g:syntastic_aggregate_errors = 1                                            "Show errors from all checkers
+" let g:syntastic_auto_jump = 3                                                   "Jump to first error detected
+let g:syntastic_php_checkers = ['php', 'phpcs', 'phpmd']                        "Enable only basic syntax checking for php
+let g:syntastic_javascript_checkers = ['jscs']                        "Enable these linters for js
+let g:syntastic_scss_checkers = []                                              "Disable scss checking
+let g:airline#extensions#syntastic#enabled = 1
+" }}}
 
-" let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-" let g:syntastic_javascript_checkers = ['jshint']
-" let g:syntastic_javascript_jslint_conf = "--nomen --plusplus --forin --regexp"
-" let g:syntastic_coffee_coffeelint_args = "--csv -f ~/coffeelint-config.json"
-let g:syntastic_html_checkers = []
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
+" Gitgutter: {{{
+let g:gitgutter_realtime = 0                                                    "Disable gitgutter in realtime
+let g:gitgutter_eager = 0                                                       "Disable gitgutter to eager load on tab or buffer switch
 " }}}
 
 " NERDCommenter: {{{
+let NERDMapleader='<Leader>c'
 let NERDSpaceDelims = 1
-" }}}
-
-" NERDTree: {{{
-" autocmd StdinReadPre * let s:std_in=1
-" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 " }}}
 
 " SpellBad Highlight: {{{
@@ -494,37 +466,6 @@ if executable('coffeetags')
 endif
 " }}}
 
-" ctrlp: {{{
-
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-
-let g:ctrlp_show_hidden = 0
-let g:ctrlp_working_path_mode = 'ra'
-
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  'node_modules$\|\.git$\|\.meteor$\|\.svn$\|dist$\|\.hg$',
-  \ 'file': '\.DS_Store$\|\.jpg$\|\.png$\|\.jpeg$\|\.gif$\|\.svg$'
-  \ }
-
-" let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
-let g:ctrlp_user_command = {
-  \ 'types': {
-    \ 1: ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f'],
-    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-    \ },
-  \ 'fallback': 'find %s -type f'
-  \ }
-
-let g:ctrlp_prompt_mappings = {
-  \ 'AcceptSelection("e")': [],
-  \ 'AcceptSelection("t")': ['<cr>', '<c-m>'],
-  \ }
-
-" }}}
-
 " Command Mapping: {{{
 com! -bang W :w
 com! -bang Wq :wq
@@ -536,11 +477,8 @@ com! -bang Q :q
 com! -bang Qa :qa
 " }}}
 
-" Macros: {{{
-runtime macros/matchit.vim
-" }}}
-
 " Switch: {{{
+nnoremap <leader>- :Switch<cr>
 let g:switch_custom_definitions =
     \ [
     \   ['true', 'false'],
@@ -558,6 +496,42 @@ let g:switch_custom_definitions =
     \ ]
 " }}}
 
+" Unite: {{{
+map  <C-p>     [unite]p
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_rank'])
+" }}}
+
+" Ctrlp: {{{
+" let g:ctrlp_map = '<c-p>'
+" let g:ctrlp_cmd = 'CtrlP'
+
+" let g:ctrlp_show_hidden = 0
+" let g:ctrlp_working_path_mode = 'ra'
+
+" set wildignore+=*/tmp/*,*.so,*.swp,*.zip
+
+" let g:ctrlp_custom_ignore = {
+  " \ 'dir':  'node_modules$\|\.git$\|\.meteor$\|\.svn$\|dist$\|\.hg$',
+  " \ 'file': '\.DS_Store$\|\.jpg$\|\.png$\|\.jpeg$\|\.gif$\|\.svg$'
+  " \ }
+
+" " let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
+" let g:ctrlp_user_command = 'ag %s -i --nocolor --nogroup --hidden
+      " \ --ignore .git
+      " \ --ignore .svn
+      " \ --ignore .hg
+      " \ --ignore .DS_Store
+      " \ --ignore node_modules
+      " \ --ignore "**/*.pyc"
+      " \ -g ""'
+
+" let g:ctrlp_prompt_mappings = {
+  " \ 'AcceptSelection("e")': [],
+  " \ 'AcceptSelection("t")': ['<cr>', '<c-m>'],
+  " \ }
+" }}}
+
 " Tern.js: {{{
 "" Jump to the definition of the thing under the cursor.
 map <leader>d :TernDef
@@ -567,10 +541,30 @@ map <leader>r :TernRefs
 map <leader>rn :TernRename
 "  }}}
 
-" Cosco: {{{
-command! CommaOrSemiColon call cosco#commaOrSemiColon()
-autocmd FileType javascript,css noremap <silent> <Leader>; :call cosco#commaOrSemiColon()<CR>
-autocmd FileType javascript,css inoremap <silent> <Leader>; <c-o>:call cosco#commaOrSemiColon()<CR>
+" Vim JSON: {{{
+let g:vim_json_syntax_conceal = 0                                               "Disable setting quotes for json syntax
+"  }}}
+
+" Diminactive: {{{
+" Dim inactive windows
+autocmd VimEnter * DimInactive
+"  }}}
+
+" vim-node: {{{
+autocmd User Node if &filetype == "javascript" | setlocal expandtab | endif
+"  }}}
+
+" fugitive.vim: {{{
+nmap <leader>gs :Gstatus<cr>
+nmap <leader>gp :Dispatch git push<cr>
+"  }}}
+
+" vim-eighties: {{{
+let g:eighties_enabled = 1
+let g:eighties_minimum_width = 80
+let g:eighties_extra_width = 5 " Increase this if you want some extra room
+let g:eighties_compute = 1 " Disable this if you just want the minimum + extra
+let g:eighties_bufname_additional_patterns = ['fugitiveblame', 'NERDTree'] " Defaults to [], 'fugitiveblame' is only an example. Takes a comma delimited list of bufnames as strings.
 "  }}}
 
 " Easymotion: {{{
@@ -593,23 +587,46 @@ map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 " }}}
 
-" JShint2: {{{
-let jshint2_read = 1
-let jshint2_save = 1
-let jshint2_confirm = 0
-let jshint2_error = 1
+" vim-startify: {{{
+" let g:startify_custom_header = [
+" \ '                                                ',
+" \ '                       _oo0oo_                  ',
+" \ '                      o8888888o                 ',
+" \ '                      88" . "88                 ',
+" \ '                      (| -_- |)                 ',
+" \ '                      0\  =  /0                 ',
+" \ '                    ___/`---`\___               ',
+" \ '                  .` \\|     |// `.             ',
+" \ '                 / \\|||  :  |||// \            ',
+" \ '                / _||||| -:- |||||- \           ',
+" \ '               |   | \\\  -  /// |   |          ',
+" \ '               | \_|  ``\---/``  |_/ |          ',
+" \ '               \  .-\__  `-`  ___/-. /          ',
+" \ '             ___`. .`  /--.--\  `. .`___        ',
+" \ '          ."" `<  `.___\_<|>_/___.` >` "".      ',
+" \ '         | | :  `- \`.;`\ _ /`;.`/ - ` : | |    ',
+" \ '         \  \ `_.   \_ __\ /__ _/   .-` /  /    ',
+" \ '     =====`-.____`.___ \_____/___.-`___.-`===== ',
+" \ '                       `=---=`                  ',
+" \ '                                                ',
+" \ '                                                ',
+" \ '     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~',
+" \ '                                                ',
+" \ '               佛祖保佑         永無BUG         ',
+" \ '',
+" \]
 " }}}
 
-" vp doesn't replace paste buffer
-function! RestoreRegister()
-  let @" = s:restore_reg
-  return ''
-endfunction
-function! s:Repl()
-  let s:restore_reg = @"
-  return "p@=RestoreRegister()\<cr>"
-endfunction
-vmap <silent> <expr> p <sid>Repl()
+" YankStack: {{{
+let g:yankstack_map_keys = 0
+nmap <leader>p <Plug>yankstack_substitute_older_paste
+nmap <leader>P <Plug>yankstack_substitute_newer_paste
+" }}}
+
+" vim-easy-align: {{{
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+" }}}
 
 " After Loading All Plugin: {{{
 function AfterStart ()
@@ -625,31 +642,13 @@ if exists(":M")
     nnoremap <leader>/ :call eregex#toggle()<CR>
 endif
 
-if exists(":NERDTreeToggle")
-    map <F12> :NERDTreeToggle<CR>
-endif
-
-"" Speeddating.vim
-if exists(":SpeedDatingFormat")
-    SpeedDatingFormat %H:%M
-    SpeedDatingFormat %m/%d
-    SpeedDatingFormat %Y/%m/%d%[ T_-]%H:%M:%S%?[Z]
-endif
-
-" Fix for vim-snipmate
-nmap <tab> V>
-vmap <tab> >gv
-
-" yankstack
-nmap Y y$
-
 endfunction
 autocmd VimEnter * :call AfterStart()
 " }}}
 
-map <C-h> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-      \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-      \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
+" map <C-h> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
+      " \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
+      " \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
 
 " comment
 map <Leader><Leader>c <Leader>c<space>
@@ -677,3 +676,20 @@ nmap <leader>v :tabe $MYVIMRC<CR>
 
 " hit enter to cancel searched highlight
 noremap <CR> :nohlsearch<CR>
+
+" Don't override register when pasting
+function! RestoreRegister()
+    let @" = s:restore_reg
+    if &clipboard == "unnamed"
+        let @* = s:restore_reg
+    endif
+    return ''
+endfunction
+
+function! s:Repl()
+    let s:restore_reg = @"
+    return "p@=RestoreRegister()\<cr>"
+endfunction
+
+" NB: this supports "rp that replaces the selection by the contents of @r
+vnoremap <silent> <expr> p <sid>Repl()
