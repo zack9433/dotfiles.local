@@ -36,6 +36,8 @@ Plugin 'ConradIrwin/vim-bracketed-paste'
 Plugin 'justincampbell/vim-eighties'
 Plugin 'tpope/vim-dispatch'
 Plugin 'blueyed/vim-diminactive'
+Plugin 'karlbright/qfdo.vim'
+Plugin 'tpope/vim-repeat'
 
 " Unite
 Plugin 'Shougo/vimproc.vim'
@@ -46,7 +48,8 @@ Plugin 'Shougo/neomru.vim'
 Plugin 'rstacruz/vim-fastunite'
 
 " Complete
-Plugin 'Valloric/YouCompleteMe'
+" Plugin 'Valloric/YouCompleteMe'
+Plugin 'Shougo/deoplete.nvim'
 Plugin 'marijnh/tern_for_vim'
 Plugin 'airblade/vim-gitgutter'
 Plugin 'tpope/vim-surround'
@@ -74,6 +77,9 @@ Plugin 'moll/vim-node'
 
 " CoffeeScript
 Plugin 'kchmck/vim-coffee-script'
+
+" Typescript
+Plugin 'leafgarland/typescript-vim'
 
 Plugin 'nginx.vim'
 
@@ -267,16 +273,20 @@ nmap <leader>nt :NERDTreeToggle<cr>
 " }}}
 
 " YouCompleteMe: {{{
-let g:ycm_semantic_triggers =  {
-  \   'c' : ['->', '.'],
-  \   'objc' : ['->', '.'],
-  \   'ocaml' : ['.', '#'],
-  \   'cpp,objcpp' : ['->', '.', '::'],
-  \   'perl' : ['->'],
-  \   'php' : ['->', '::'],
-  \   'coffee' : ['.', '["', "['"],
-  \   'javascript' : ['.', '["', "['", 'new '],
-  \ }
+" let g:ycm_semantic_triggers =  {
+  " \   'c' : ['->', '.'],
+  " \   'objc' : ['->', '.'],
+  " \   'ocaml' : ['.', '#'],
+  " \   'cpp,objcpp' : ['->', '.', '::'],
+  " \   'perl' : ['->'],
+  " \   'php' : ['->', '::'],
+  " \   'coffee' : ['.', '["', "['"],
+  " \   'javascript' : ['.', '["', "['", 'new '],
+  " \ }
+" }}}
+
+" Deoplete.nvim: {{{
+let g:deoplete#enable_at_startup = 1
 " }}}
 
 " JS Libs: {{{
