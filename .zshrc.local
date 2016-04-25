@@ -95,6 +95,11 @@ if hash brew 2>/dev/null; then
   source $(brew --prefix nvm)/nvm.sh
 fi
 
+# alias git to hub
+if hash hub 2>/dev/null; then
+  eval "$(hub alias -s)"
+fi
+
 # Base16 Shell
 if [ -z "$THEME" ]; then
   export THEME="base16-material"
