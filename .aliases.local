@@ -1,5 +1,5 @@
 # Include git aliases
-source ./git/aliases
+source $HOME/dotfiles.local/git/aliases
 
 # reload zsh config
 alias reload!='source ~/.zshrc'
