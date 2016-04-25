@@ -5,7 +5,6 @@
   user = zack9433
 [core]
   pager = less -FXRS -x2
-  editor = vim
   whitespace = cr-at-eol
 [pretty]
   colored = format:'%Cred%h%Creset %C(bold blue)%an%C(reset) - %s %Creset %C(yellow)%d%Creset %Cgreen(%cr)%Creset'
