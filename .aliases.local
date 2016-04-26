@@ -24,6 +24,8 @@ alias la="ls -AF ${colorflag}"
 alias ll="ls -lFh ${colorflag}"
 alias rmf="rm -rf"
 
+alias ssh="TERM=xterm-256color ssh"
+
 # Helpers
 alias grep='grep --color=auto'
 alias df='df -h' # disk free, in Gigabytes, not bytes
