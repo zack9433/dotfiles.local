@@ -7,7 +7,7 @@ export DOTFILES_LOCAL=$HOME/dotfiles.local
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="ys"
+ZSH_THEME="pure"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -92,7 +92,6 @@ fpath=(/usr/local/share/zsh-completions $fpath)
 
 # source nvm
 export NVM_DIR=~/.nvm
-
 if hash brew 2>/dev/null; then
   source $(brew --prefix nvm)/nvm.sh
 fi
@@ -114,3 +113,9 @@ source $BASE16_SHELL
 
 # fuzzy search
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# prompt pure theme -> https://github.com/sindresorhus/pure
+mkdir -p $HOME/.zfunctions
+fpath=("$HOME/.zfunctions" $fpath)
+[ ! -f "$HOME/.zfunctions/prompt_pure_setup" ] && ln -s "$DOTFILES_LOCAL/prompt/pure.zsh" "$HOME/.zfunctions/prompt_pure_setup"
+[ ! -f "$HOME/.zfunctions/async" ] && ln -s "$DOTFILES_LOCAL/prompt/async.zsh" "$HOME/.zfunctions/async"
