@@ -60,7 +60,7 @@
   cnv = commit --no-verify
   pnv = push --noverify
   cob = checkout -b
-  s = status --short
+  s = status
   br = branch -v
   undo = reset --soft HEAD~1
   amend = commit -a --amend<Paste>
