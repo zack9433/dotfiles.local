@@ -13,6 +13,7 @@ brew install tree
 
 # development tools
 brew install git
+brew install python3
 brew install hub
 brew install reattach-to-user-namespace
 brew install tmux
@@ -23,5 +24,7 @@ brew install markdown
 
 # install neovim
 brew install neovim/neovim/neovim
+
+export PATH=/usr/local/share/python3:$PATH
 
 exit 0
