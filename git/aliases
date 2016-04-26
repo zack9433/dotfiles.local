@@ -22,6 +22,14 @@ alias gr='[ ! -z `git rev-parse --show-cdup` ] && cd `git rev-parse --show-cdup 
 
 alias sub-pull='git submodule foreach git pull origin master'
 
+# git flow alias
+alias gfi="git flow init"
+alias gffl="git flow feature list"
+alias gffp="git flow feature publish"
+alias gffs="git flow feature start"
+alias gfff="git flow feature finish"
+alias gffc="git flow feature checkout"
+
 function give-credit() {
   git commit --amend --author $1 <$2> -C HEAD
 }
