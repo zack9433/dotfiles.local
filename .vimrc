@@ -590,3 +590,14 @@ noremap <CR> :nohlsearch<CR>
 
 " }}}
 
+" Command Mapping: {{{
+com! -bang W :w
+com! -bang Wq :wq
+com! -bang Wqa :wqa
+com! -bang WQ :wq
+com! -bang WQa :wqa
+com! -bang WQA :wqa
+com! -bang Q :q
+com! -bang Qa :qa
+" }}}
+
