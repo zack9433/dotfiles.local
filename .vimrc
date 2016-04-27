@@ -29,7 +29,6 @@ set sessionoptions-=options
 if has('mouse')
   set mouse=a
 endif
-" http://stackoverflow.com/questions/30691466/what-is-difference-between-vims-clipboard-unnamed-and-unnamedplus-settings
 set clipboard^=unnamed,unnamedplus
 " faster redrawing
 set ttyfast
@@ -42,7 +41,7 @@ set display+=lastline
 " }}}
 
 " Section Functions {{{
-"
+
 fun! StripTrailingWhitespace()
     " Don't strip on these filetypes
     if &ft =~ 'markdown\|perl'
@@ -191,7 +190,7 @@ Plug 'easymotion/vim-easymotion'
 Plug 'marijnh/tern_for_vim'
 Plug 'airblade/vim-gitgutter'
 Plug 'rking/ag.vim' " Vim plugin for the_silver_searcher
-Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') } " Dark powered asynchronous completion framework for neovim
+Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') } | Plug 'Konfekt/FastFold' " Dark powered asynchronous completion framework for neovim
 Plug 'maxbrunsfeld/vim-yankstack' " A lightweight implementation of emacs's kill-ring for vim
 Plug 'junegunn/vim-easy-align' " A Vim alignment plugin
 Plug 'AndrewRadev/switch.vim' " A simple Vim plugin to switch segments of text with predefined replacements
@@ -249,6 +248,14 @@ Plug 'ekalinin/Dockerfile.vim'
 
 call plug#end()
 
+" }}}
+
+" FastFold: {{{
+let g:tex_fold_enabled=1
+let g:vimsyn_folding='af'
+let g:xml_syntax_folding = 1
+let g:php_folding = 1
+let g:perl_fold = 1
 " }}}
 
 " NERDTree: {{{
@@ -392,7 +399,7 @@ let g:gitgutter_eager = 0 "Disable gitgutter to eager load on tab or buffer swit
 " Section User Interface {{{
 
 " code folding settings
-set foldmethod=syntax " fold based on indent
+set foldmethod=syntax " fold based on syntax
 set foldnestmax=10 " deepest fold is 10 levels
 set nofoldenable " don't fold by default
 set foldlevel=1
