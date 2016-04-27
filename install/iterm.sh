@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 echo -e "\n\nSet iterm info"
 echo "=============================="

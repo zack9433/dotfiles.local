@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 # Path to local dotfiles
 DOTFILES_LOCAL=$HOME/dotfiles.local
@@ -7,7 +7,7 @@ DOTFILES_LOCAL=$HOME/dotfiles.local
 ln -sf "$DOTFILES_LOCAL/prompt/pure.zsh" "$HOME/.oh-my-zsh/themes/pure.zsh-theme"
 
 # set base16-shell link
-[ ! -d "$HOME/.config" ] && mkdir -p $HOME/.config
+[ ! -d "$HOME/.config" ] && mkdir -p "$HOME/.config"
 ln -sf "$DOTFILES_LOCAL/base16/shell" "$HOME/.config/base16-shell"
 
 # create local config link
