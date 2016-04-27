@@ -253,7 +253,7 @@ call plug#end()
 
 " NERDTree: {{{
 " close NERDTree after a file is opened
-let g:NERDTreeQuitOnOpen=0
+let g:NERDTreeQuitOnOpen=1
 let NERDTreeShowHidden=1
 let NERDTreeIgnore = ['\.js.map$']
 " expand to the path of the file in the current buffer
