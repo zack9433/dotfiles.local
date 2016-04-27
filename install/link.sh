@@ -14,3 +14,6 @@ ln -sf "$DOTFILES_LOCAL/base16/shell" "$HOME/.config/base16-shell"
 [ ! -f "$HOME/.zshrc.local" ] && ln -s "$DOTFILES_LOCAL/.zshrc.local"
 [ ! -f "$HOME/.gitconfig.local" ] && ln -s "$DOTFILES_LOCAL/.gitconfig.local"
 [ ! -f "$HOME/.aliases.local" ] && ln -s "$DOTFILES_LOCAL/.aliases.local"
+
+# set zplug link
+ln -sf "$DOTFILES_LOCAL/zplug" "$HOME/.zplug"
