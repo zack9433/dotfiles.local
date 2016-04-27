@@ -1,3 +1,46 @@
+
+" Section General {{{
+" Abbreviations
+abbr funciton function
+abbr tempalte template
+
+let mapleader = ","
+let g:mapleader = ','
+
+" not compatible with vi
+set nocompatible
+" detect when a file is changed
+set autoread
+" make backspace behave in a sane manner
+set backspace=indent,eol,start
+" set a map leader for more key combos
+set showtabline=2 " always show tab line
+set textwidth=120
+" Tab control
+set noexpandtab " insert tabs rather than spaces for <Tab>
+set smarttab " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
+set tabstop=2 " the visible width of tabs
+set softtabstop=2 " edit as if the tabs are 4 characters wide
+set shiftwidth=2 " number of spaces to use for indent and unindent
+set shiftround " round indent to a multiple of 'shiftwidth'
+set fileformats+=mac
+set sessionoptions-=options
+
+if has('mouse')
+  set mouse=a
+endif
+" http://stackoverflow.com/questions/30691466/what-is-difference-between-vims-clipboard-unnamed-and-unnamedplus-settings
+set clipboard^=unnamed,unnamedplus
+" faster redrawing
+set ttyfast
+
+set diffopt+=vertical
+" highlight conflicts
+match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
+set laststatus=2 " show the satus line all the time
+set display+=lastline
+" }}}
+
 " Section Functions {{{
 "
 fun! StripTrailingWhitespace()
@@ -165,7 +208,6 @@ Plug 'tpope/vim-surround' " mappings to easily delete, change and add such surro
 Plug 'benmills/vimux' " tmux integration for vim
 Plug 'vim-airline/vim-airline' " fancy statusline
 Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
-" Plug 'scrooloose/syntastic' " syntax checking for vim
 Plug 'benekastah/neomake' " neovim replacement for syntastic using neovim's job control functonality
 Plug 'tpope/vim-fugitive' " amazing git wrapper for vim
 Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
@@ -177,9 +219,6 @@ Plug 'tomtom/tlib_vim' " utility functions for vim
 Plug 'sotte/presenting.vim', { 'for': 'markdown' } " a simple tool for presenting slides in vim based on text files
 Plug 'ervandew/supertab' " Perform all your vim insert mode completions with Tab
 Plug 'tpope/vim-dispatch' " asynchronous build and test dispatcher
-" Plug 'mtth/scratch.vim'
-" Plug 'tpope/vim-vinegar'
-" Plug 'tpope/vim-abolish'
 Plug 'AndrewRadev/splitjoin.vim' " single/multi line code handler: gS - split one line into multiple, gJ - combine multiple lines into one
 Plug 'vim-scripts/matchit.zip' " extended % matching
 Plug 'tpope/vim-sleuth' " detect indent style (tabs vs. spaces)
@@ -193,15 +232,11 @@ Plug 'gregsexton/MatchTag', { 'for': 'html' } " match tags in html, similar to p
 Plug 'othree/html5.vim', { 'for': 'html' } " html5 support
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' } " JavaScript support
 Plug 'moll/vim-node', { 'for': 'javascript' } " node support
-" Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' } " JavaScript syntax plugin
 Plug 'othree/yajs.vim', { 'for': 'javascript' } " JavaScript syntax plugin
 Plug 'mxw/vim-jsx', { 'for': 'jsx' } " JSX support
 Plug 'elzr/vim-json', { 'for': 'json' } " JSON support
-" Plug 'Quramy/tsuquyomi', { 'for': 'typescript', 'do': 'npm install' } " extended typescript support - works as a client for TSServer
 Plug 'Shougo/vimproc.vim', { 'do': 'make' } " interactive command execution in vim
 Plug 'leafgarland/typescript-vim', { 'for': 'typescript' } " typescript support
-" Plug 'clausreinke/typescript-tools.vim', { 'for': 'typescript' } " typescript tools
-" Plug 'juvenn/mustache.vim', { 'for': 'mustache' } " mustache support
 Plug 'digitaltoad/vim-jade', { 'for': 'jade' } " jade support
 Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' } " sass scss syntax support
 Plug 'wavded/vim-stylus', { 'for': ['stylus', 'markdown'] } " markdown support
@@ -318,11 +353,6 @@ let g:SuperTabCrMapping = 0
 autocmd User Node if &filetype == "javascript" | setlocal expandtab | endif
 "  }}}
 
-" fugitive.vim: {{{
-nmap <leader>gs :Gstatus<cr>
-nmap <leader>gp :Dispatch git push<cr>
-"  }}}
-
 " Easymotion: {{{
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
@@ -357,47 +387,6 @@ nmap ga <Plug>(EasyAlign)
 " Gitgutter: {{{
 let g:gitgutter_realtime = 0 "Disable gitgutter in realtime
 let g:gitgutter_eager = 0 "Disable gitgutter to eager load on tab or buffer switch
-" }}}
-
-" Section General {{{
-" Abbreviations
-abbr funciton function
-abbr tempalte template
-
-" not compatible with vi
-set nocompatible
-" detect when a file is changed
-set autoread
-" make backspace behave in a sane manner
-set backspace=indent,eol,start
-" set a map leader for more key combos
-let mapleader = ','
-let g:mapleader = ','
-set showtabline=2 " always show tab line
-set textwidth=120
-" Tab control
-set noexpandtab " insert tabs rather than spaces for <Tab>
-set smarttab " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
-set tabstop=2 " the visible width of tabs
-set softtabstop=2 " edit as if the tabs are 4 characters wide
-set shiftwidth=2 " number of spaces to use for indent and unindent
-set shiftround " round indent to a multiple of 'shiftwidth'
-set fileformats+=mac
-set sessionoptions-=options
-
-if has('mouse')
-  set mouse=a
-endif
-" http://stackoverflow.com/questions/30691466/what-is-difference-between-vims-clipboard-unnamed-and-unnamedplus-settings
-set clipboard^=unnamed,unnamedplus
-" faster redrawing
-set ttyfast
-
-set diffopt+=vertical
-" highlight conflicts
-match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
-set laststatus=2 " show the satus line all the time
-set display+=lastline
 " }}}
 
 " Section User Interface {{{
