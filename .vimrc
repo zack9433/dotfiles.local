@@ -1,544 +1,237 @@
-" .vimrc by othree ( othree AT gmail DOT com )
-
-" Vundle
-" git clone http://github.com/gmarik/vundle.git ~/.vim/bundle/vundle
-
-set nocompatible               " be iMproved
-filetype off                   " required!
-
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-
-" let Vundle manage Vundle
-Plugin 'gmarik/vundle'
-
-" Colors
-Plugin 'jellybeans.vim'
-
-Plugin 'bling/vim-airline'
-
-" Improve
-Plugin 'maxbrunsfeld/vim-yankstack'
-Plugin 'VisIncr'
-Plugin 'junegunn/vim-easy-align'
-Plugin 'othree/eregex.vim'
-Plugin 'kien/ctrlp.vim'
-Plugin 'mbbill/undotree'
-Plugin 'spiiph/vim-space'
-Plugin 'AndrewRadev/switch.vim'
-Plugin 'Raimondi/delimitMate'
-Plugin 'terryma/vim-expand-region'
-Plugin 'lfilho/cosco.vim'
-Plugin 'rstacruz/vim-closer'
-
-" Complete
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'marijnh/tern_for_vim'
-Plugin 'MarcWeber/vim-addon-mw-utils'
-Plugin 'tomtom/tlib_vim.git'
-Plugin 'honza/vim-snippets'
-Plugin 'garbas/vim-snipmate'
-Plugin 'airblade/vim-gitgutter'
-
-Plugin 'Lokatog/vim-easymotion'
-
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'scrooloose/nerdtree'
-Plugin 'scrooloose/syntastic'
-
-" Tim Pope
-Plugin 'tpope/vim-surround'
-
-" Filetype
-Plugin 'SyntaxRange'
-Plugin 'mattn/emmet-vim'
-Plugin 'othree/html5.vim'
-Plugin 'othree/xml.vim'
-
-" JavaScript
-Plugin 'othree/vim-javascript-syntax'
-Plugin 'JSON.vim'
-Plugin 'othree/javascript-libraries-syntax.vim'
-Plugin 'othree/jspc.vim'
-
-" CoffeeScript
-Plugin 'kchmck/vim-coffee-script'
-
-Plugin 'nginx.vim'
-
-" CSS, SCSS
-Plugin 'rstacruz/vim-css-shorthand'
-Plugin 'hail2u/vim-css3-syntax'
-Plugin 'ap/vim-css-color'
-Plugin 'cakebaker/scss-syntax.vim'
-
-" Markdown
-Plugin 'plasticboy/vim-markdown'
-
-" ctags
-" Plugin 'majutsushi/tagbar'
-
-" supertab
-Plugin 'ervandew/supertab'
-
-" multiple cursor
-Plugin 'terryma/vim-multiple-cursors'
-
-" editorconfig
-Plugin 'editorconfig/editorconfig-vim'
-
-" ag.vim
-Plugin 'rking/ag.vim'
-
-" Make Ctrl-P plugin a lot faster for Git projects
-Plugin 'vim-scripts/gitignore'
-
-" Seamless navigation between tmux panes and vim splits
-Plugin 'christoomey/vim-tmux-navigator'
-
-Plugin 'Shutnik/jshint2.vim'
-
-" Dockerfile syntax
-Plugin 'ekalinin/Dockerfile.vim'
-
-" Wakatime
-Plugin 'wakatime/vim-wakatime'
-
-" All of your Plugins must be added before the following line
-call vundle#end()            " required
-filetype plugin indent on    " required
-
-" Basic Settings: {{{
-syntax on
-filetype on
-filetype plugin on
-filetype indent on
-set background=dark
-colors jellybeans
-language message zh_TW.UTF-8
-
-set nocompatible
-set display+=lastline
-set wrap
-set showtabline=2 " always show tab line
-set ruler
-set nu
-set nuw=5
-set tabstop=2
-set softtabstop=2
-set shiftwidth=2
-set expandtab
-set autoindent
-set smartindent
-set cindent
-set hlsearch
-set foldmethod=marker
-set backspace=indent,eol,start whichwrap+=<,>,[,]
-set hidden
-set nobomb
-set hlsearch
-set nobackup
-set backupcopy=yes
-set noswapfile
-set textwidth=80
-
-" set guicolors
-
-let mapleader = ","
-
-" Status Line
-set laststatus=2
-
-" Encoding
-set encoding=utf-8
-set fileencodings=ucs-bom,utf-8,euc-jp,big5
-set ambiwidth=double
-set t_Co=256
-
-" Status Line
-" set laststatus=2
-" set statusline=%f\ %y%r%1*%m%*\ %{g:HahHah()}%=%<\ [%{(&fenc==\"\")?&enc:&fenc}%{(&bomb?\",BOM\":\"\")}]\ x%02B\ %4c\ %4l\ [%P]
-" " set statusline=%=%{g:HahHah()}
-
-" Special File Types
-au BufRead,BufNewFile *nginx* set ft=nginx
-au BufRead,BufNewFile *.vroom set ft=vroom
-au BufRead,BufNewFile *.less set ft=less
-au BufRead,BufNewFile *.tpl set ft=html
-au BufRead,BufNewFile *.xsl set ft=html
-au BufRead,BufNewFile *.json set syntax=json
-au BufRead,BufNewFile *.n3  set ft=n3
-au BufRead,BufNewFile /usr/local/etc/nginx/* set ft=nginx
-au BufRead,BufNewFile /etc/nginx/* set ft=nginx
-au BufRead,BufNewFile *.hbs set ft=handlebars
-" au BufRead,BufNewFile *.rb set sw=2 sts=2 st=2
-" au BufRead,BufNewFile *.rake set sw=2 sts=2 st=2
-" au BufRead,BufNewFile *.ls set sw=2 sts=2 st=2
-au BufNewFile,BufReadPost *.ls setl foldmethod=indent nofoldenable
-
-" highlight line & column
-au WinLeave * set nocursorline
-au WinEnter * set cursorline
-set cursorline
-
-" highlight the 80th column
+" Section Functions {{{
 "
-" In Vim >= 7.3, also highlight columns 120+
-if exists('+colorcolumn')
-  " (I picked 120-320 because you have to provide an upper bound and 500 seems
-  " to be enough.)
-  let &colorcolumn="80,".join(range(120,500),",")
-else
-  " fallback for Vim < v7.3
-  autocmd BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
-endif
-
-" Color Tweak for highlight
-" highlight CursorLine    ctermbg=89
-" highlight Comment       ctermfg=246
-highlight ColorColumn   ctermbg=235 guibg=#2c2d27
-
-" }}}
-
-" FileType: {{{
-"" omnifunc setting
-setlocal omnifunc=syntaxcomplete#Complete
-autocmd FileType python set omnifunc=pythoncomplete#Complete
-" autocmd FileType javascript set omnifunc=jscomplete#CompleteJS
-autocmd FileType html set omnifunc=htmlcomplete#CompleteTags noci
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS noci
-"autocmd FileType xml set omnifunc=xmlcomplete#CompleteTags noci
-"autocmd FileType php set omnifunc=phpcomplete#CompletePHP
-"autocmd FileType c set omnifunc=ccomplete#Complete
-"autocmd FileType cpp set omnifunc=ccomplete#Complete
-autocmd FileType python set complete+=k~/.vim/syntax/python.vim isk+=.,(
-autocmd FileType scss set sw=2
-
-autocmd FileType coffee set ts=2 sw=2 sts=2
-autocmd FileType vim set ts=2 sw=2 sts=2
-
-autocmd FileType *
-    \ if &omnifunc != '' |
-    \   call SuperTabChain(&omnifunc, "<c-p>") |
-    \   call SuperTabSetDefaultCompletionType("<c-x><c-]>") |
-    \ endif
-
-let g:omni_syntax_group_include_javascript = 'javascript\w\+,jquery\w\+,underscore\w\+,prelude\w\+,requirejs\w\+'
-" }}}
-
-" NERDTree: {{{
-" NERDtree settings
-let NERDTreeShowHidden=1
-let g:nerdtree_tabs_open_on_console_startup = 1
-let g:nerdtree_tabs_open_on_gui_startup = 1
-let g:nerdtree_tabs_no_startup_for_diff = 1
-let g:nerdtree_tabs_smart_startup_focus = 1
-let g:nerdtree_tabs_autoclose = 1
-" }}}
-
-" YouCompleteMe: {{{
-let g:ycm_semantic_triggers =  {
-  \   'c' : ['->', '.'],
-  \   'objc' : ['->', '.'],
-  \   'ocaml' : ['.', '#'],
-  \   'cpp,objcpp' : ['->', '.', '::'],
-  \   'perl' : ['->'],
-  \   'php' : ['->', '::'],
-  \   'coffee' : ['.', '["', "['"],
-  \   'javascript' : ['.', '["', "['", 'new '],
-  \ }
-" }}}
-
-" JS Libs: {{{
-let g:used_javascript_libs = 'angularjs,backbone,jquery,lodash,requirejs'
-" }}}
-
-" Screen Fix: {{{
-if &term =~ '^screen'
-    set t_k1=[11~
-    set t_k2=[12~
-    set t_k3=[13~
-    set t_k4=[14~
-endif
-" }}}
-
-" QuickFix: {{{
-" http://vim.wikia.com/wiki/Toggle_to_open_or_close_the_quickfix_window
-command -bang -nargs=? QFix call QFixToggle(<bang>0)
-function! QFixToggle(forced)
-  if exists("g:qfix_win") && a:forced == 0
-    cclose
-    unlet g:qfix_win
-  else
-    copen 10
-    let g:qfix_win = bufnr("$")
-  endif
-endfunction
-nnoremap <leader>q :QFix<CR>
-
-" http://vim.wikia.com/wiki/Automatically_open_the_quickfix_window_on_:make
-autocmd QuickFixCmdPost [^l]* nested cwindow
-autocmd QuickFixCmdPost    l* nested lwindow
-
-" http://vim.wikia.com/wiki/Automatically_quit_Vim_if_quickfix_window_is_the_last
-au BufEnter * call MyLastWindow()
-function! MyLastWindow()
-  " if the window is quickfix go on
-  if &buftype=="quickfix"
-    " if this window is last on screen quit without warning
-    if winbufnr(2) == -1
-      quit!
+fun! StripTrailingWhitespace()
+    " Don't strip on these filetypes
+    if &ft =~ 'markdown\|perl'
+        return
     endif
-  endif
+    %s/\s\+$//e
+endfun
+
+" Window movement shortcuts
+" move to the window in the direction shown, or create a new window
+function! WinMove(key)
+    let t:curwin = winnr()
+    exec "wincmd ".a:key
+    if (t:curwin == winnr())
+        if (match(a:key,'[jk]'))
+            wincmd v
+        else
+            wincmd s
+        endif
+        exec "wincmd ".a:key
+    endif
 endfunction
-" }}}
 
-" Key Mapping: {{{
+" recursively search up from dirname, sourcing all .vimrc.local files along the way
+function! ApplyLocalSettings(dirname)
+    " convert windows paths to unix style
+    let l:curDir = substitute(a:dirname, '\\', '/', 'g')
 
-" http://vim.wikia.com/wiki/Map_semicolon_to_colon
-" map ; :
+    " walk to the top of the dir tree
+    let l:parentDir = strpart(l:curDir, 0, strridx(l:curDir, '/'))
+    if isdirectory(l:parentDir)
+        call ApplyLocalSettings(l:parentDir)
+    endif
 
-map Q <Nop>
+    " now walk back down the path and source .vimsettings as you find them.
+    " child directories can inherit from their parents
+    let l:settingsFile = a:dirname . '/.vimrc.local'
+    if filereadable(l:settingsFile)
+        exec ':source' . l:settingsFile
+    endif
+endfunction
 
-"" function keys
-nmap <F2>  :set nonumber!<CR>
-nmap <F3>  :set nopaste!<CR>
-nmap <F4>  :set spell!<CR>
-" Leave F5 for ctrlp
-nmap <F6>  :set wrap!<CR>
-nmap <F7>  :QFix<CR>
-nmap <F8>  :UndotreeToggle<CR>
-nmap <F12> :tab ball<CR>
-" F12 > JSLint
+" smart tab completion
+function! Smart_TabComplete()
+    let line = getline('.')                         " current line
 
-"" tab to indent
-nmap <tab> V>
-vmap <tab> >gv
-nmap <s-tab> V<
-vmap <s-tab> <gv
+    let substr = strpart(line, -1, col('.')+1)      " from the start of the current
+    " line to one character right
+    " of the cursor
+    let substr = matchstr(substr, '[^ \t]*$')       " word till cursor
+    if (strlen(substr)==0)                          " nothing to match on empty string
+        return '\<tab>'
+    endif
+    let has_period = match(substr, '\.') != -1      " position of period, if any
+    let has_slash = match(substr, '\/') != -1       " position of slash, if any
+    if (!has_period && !has_slash)
+        return '\<C-X>\<C-P>'                         " existing text matching
+    elseif ( has_slash )
+        return '\<C-X>\<C-F>'                         " file matching
+    else
+        return '\<C-X>\<C-O>'                         " plugin matching
+    endif
+endfunction
 
-"" HOME END
-nmap <C-Home> gg
-nmap <C-End> G<End>
-imap <C-Home> <Esc>ggi
-imap <C-End> <Esc>G<End>i
+" execute a custom command
+function! RunCustomCommand()
+    up
+    if g:silent_custom_command
+        execute 'silent !' . s:customcommand
+    else
+        execute '!' . s:customcommand
+    endif
+endfunction
 
-"" up/down base on screen
-"noremap  <C-J>       gj
-"noremap  <C-K>       gk
-"noremap  <Down>      gj
-"noremap  <Up>        gk
-"inoremap <Down> <C-O>gj
-"inoremap <Up>   <C-O>gk
+function! SetCustomCommand()
+    let s:customcommand = input('Enter Custom Command$ ')
+endfunction
 
-"" Fix up/down in popup
-" inoremap <silent><expr><Up> pumvisible() ? "<Up>" : "<C-O>gk"
-" inoremap <silent><expr><Down> pumvisible() ? "<Down>" : "<C-O>gj"
-" inoremap <expr> <cr> pumvisible() ? "\<c-y>" : "\<c-g>u\<cr>"
-" autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-" autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+function! DoRemote(arg)
+  UpdateRemotePlugins
+endfunction
 
-"" tab control
-"" http://c9s.blogspot.com/2007/08/vim-my-key-mapping-for-tabs.html
-nmap    <leader>tn    :tabnew<cr>
-nmap    <leader>te    :tabedit
-nmap    <leader>tx    :tabedit .<cr>
-nmap    <leader>th    :tab help<cr>
+function! HiInterestingWord(n)
+    " Save our location.
+    normal! mz
 
-" nmap    <C-t>     :tabnew<cr>
-" nmap    <C-w>     :tabc<cr>
+    " Yank the current word into the z register.
+    normal! "zyiw
 
-nmap    <C-left>  :tabp<cr>
-nmap    <C-right> :tabn<cr>
+    " Calculate an arbitrary match ID.  Hopefully nothing else is using it.
+    let mid = 86750 + a:n
 
-imap    <C-j>  <ESC>:tabn<CR>
-nmap    <C-j>  :tabn<CR>
-imap    <C-k>  <ESC>:tabp<CR>
-nmap    <C-k>  :tabp<CR>
+    " Clear existing matches, but don't worry if they don't exist.
+    silent! call matchdelete(mid)
 
-cmap w!! %!sudo tee > /dev/null %
+    " Construct a literal pattern that has to match at boundaries.
+    let pat = '\V\<' . escape(@z, '\') . '\>'
 
-"" keypad
-"" http://vim.wikia.com/wiki/PuTTY_numeric_keypad_mappings
-imap <Esc>Oq 1
-imap <Esc>Or 2
-imap <Esc>Os 3
-imap <Esc>Ot 4
-imap <Esc>Ou 5
-imap <Esc>Ov 6
-imap <Esc>Ow 7
-imap <Esc>Ox 8
-imap <Esc>Oy 9
-imap <Esc>Op 0
-imap <Esc>On .
-imap <Esc>OQ /
-imap <Esc>OR *
-imap <Esc>Ol +
-imap <Esc>OS -
+    " Actually match the words.
+    call matchadd("InterestingWord" . a:n, pat, 1, mid)
 
-" ctags
-nnoremap <leader>. :CtrlPTag<cr>
-nnoremap <silent> <Leader>b :TagbarToggle<CR>
+    " Move back to our original location.
+    normal! `z
+endfunction
 
-let NERDMapleader='<Leader>c'
+nnoremap <silent> <leader>1 :call HiInterestingWord(1)<cr>
+nnoremap <silent> <leader>2 :call HiInterestingWord(2)<cr>
+nnoremap <silent> <leader>3 :call HiInterestingWord(3)<cr>
+nnoremap <silent> <leader>4 :call HiInterestingWord(4)<cr>
+nnoremap <silent> <leader>5 :call HiInterestingWord(5)<cr>
+nnoremap <silent> <leader>6 :call HiInterestingWord(6)<cr>
 
-" switch
-nnoremap <leader>- :Switch<cr>
-"}}}
+hi def InterestingWord1 guifg=#000000 ctermfg=16 guibg=#ffa724 ctermbg=214
+hi def InterestingWord2 guifg=#000000 ctermfg=16 guibg=#aeee00 ctermbg=154
+hi def InterestingWord3 guifg=#000000 ctermfg=16 guibg=#8cffba ctermbg=121
+hi def InterestingWord4 guifg=#000000 ctermfg=16 guibg=#b88853 ctermbg=137
+hi def InterestingWord5 guifg=#000000 ctermfg=16 guibg=#ff9eb8 ctermbg=211
+hi def InterestingWord6 guifg=#000000 ctermfg=16 guibg=#ff2c4b ctermbg=195
 
-" Airline: {{{
+function! HtmlUnEscape()
+  silent s/&lt;/</eg
+  silent s/&gt;/>/eg
+  silent s/&amp;/\&/eg
+endfunction
 
-let g:airline_left_sep = ''
-" let g:airline_right_sep = ''
-let g:airline_fugitive_prefix = '  '
-" let g:airline_readonly_symbol = ''
-" let g:airline_linecolumn_prefix = ' '
-
-let g:airline_theme='jellybeans'
-
-" }}}
-
-" SyntaxRange {{{
-
-autocmd FileType html call SyntaxRange#Include('/<script[^>]*>/', '</script>', 'javascript', 'htmlTagName')
-autocmd FileType html call SyntaxRange#Include('/<style[^>]*>/', '</style>', 'css', 'htmlTagName')
+nnoremap <silent> <leader>u :call HtmlUnEscape()<cr>
 
 " }}}
 
-" Emmet: {{{
-let g:user_emmet_install_global = 0
-autocmd FileType html,css EmmetInstall
-" }}}
+" Section Plugins {{{
+call plug#begin('~/.config/nvim/plugged')
 
-" YankStack: {{{
-let g:yankstack_map_keys = 0
-nmap <leader>p <Plug>yankstack_substitute_older_paste
-nmap <leader>P <Plug>yankstack_substitute_newer_paste
-" }}}
+" colorschemes
+Plug 'chriskempson/base16-vim'
 
-" Syntastic: {{{
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+" Unite
+Plug 'Shougo/vimproc.vim'
+Plug 'Shougo/unite.vim'
+Plug 'tacroe/unite-mark'
+Plug 'h1mesuke/unite-outline'
+Plug 'Shougo/neomru.vim'
+Plug 'rstacruz/vim-fastunite'
 
-" let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-" let g:syntastic_javascript_checkers = ['jshint']
-" let g:syntastic_javascript_jslint_conf = "--nomen --plusplus --forin --regexp"
-" let g:syntastic_coffee_coffeelint_args = "--csv -f ~/coffeelint-config.json"
-let g:syntastic_html_checkers = []
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-" }}}
+" utilities
+Plug 'easymotion/vim-easymotion'
+Plug 'marijnh/tern_for_vim'
+Plug 'airblade/vim-gitgutter'
+Plug 'rking/ag.vim' " Vim plugin for the_silver_searcher
+Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') } " Dark powered asynchronous completion framework for neovim
+Plug 'maxbrunsfeld/vim-yankstack' " A lightweight implementation of emacs's kill-ring for vim
+Plug 'junegunn/vim-easy-align' " A Vim alignment plugin
+Plug 'AndrewRadev/switch.vim' " A simple Vim plugin to switch segments of text with predefined replacements
+Plug 'terryma/vim-expand-region' " Vim plugin that allows you to visually select increasingly larger regions of text using the same key combination.
+Plug 'ConradIrwin/vim-bracketed-paste' " Handles bracketed-paste-mode in vim (aka. automatic `:set paste`)
+Plug 'ctrlpvim/ctrlp.vim' " fuzzy file finder, mapped to <leader>t
+Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'ryanoasis/vim-devicons' " file drawer
+Plug 'jiangmiao/auto-pairs' " automatic closing of quotes, parenthesis, brackets, etc.
+Plug 'tpope/vim-commentary' " comment stuff out
+Plug 'tpope/vim-unimpaired' " mappings which are simply short normal mode aliases for commonly used ex commands
+Plug 'tpope/vim-endwise' " automatically add end in ruby
+Plug 'tpope/vim-ragtag' " endings for html, xml, etc. - ehances surround
+Plug 'tpope/vim-surround' " mappings to easily delete, change and add such surroundings in pairs, such as quotes, parens, etc.
+Plug 'benmills/vimux' " tmux integration for vim
+Plug 'vim-airline/vim-airline' " fancy statusline
+Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
+" Plug 'scrooloose/syntastic' " syntax checking for vim
+Plug 'benekastah/neomake' " neovim replacement for syntastic using neovim's job control functonality
+Plug 'tpope/vim-fugitive' " amazing git wrapper for vim
+Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
+Plug 'garbas/vim-snipmate' " snippet manager
+Plug 'honza/vim-snippets' " vim-snipmate default snippets
+Plug 'editorconfig/editorconfig-vim' " .editorconfig support
+Plug 'MarcWeber/vim-addon-mw-utils' " interpret a file by function and cache file automatically
+Plug 'tomtom/tlib_vim' " utility functions for vim
+Plug 'sotte/presenting.vim', { 'for': 'markdown' } " a simple tool for presenting slides in vim based on text files
+Plug 'ervandew/supertab' " Perform all your vim insert mode completions with Tab
+Plug 'tpope/vim-dispatch' " asynchronous build and test dispatcher
+" Plug 'mtth/scratch.vim'
+" Plug 'tpope/vim-vinegar'
+" Plug 'tpope/vim-abolish'
+Plug 'AndrewRadev/splitjoin.vim' " single/multi line code handler: gS - split one line into multiple, gJ - combine multiple lines into one
+Plug 'vim-scripts/matchit.zip' " extended % matching
+Plug 'tpope/vim-sleuth' " detect indent style (tabs vs. spaces)
+Plug 'sickill/vim-pasta' " context-aware pasting
+Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } " distraction-free writing
+Plug 'junegunn/limelight.vim', { 'on': 'Limelight' } " focus tool. Good for presentating with vim
 
-" NERDCommenter: {{{
-let NERDSpaceDelims = 1
+" language-specific plugins
+Plug 'mattn/emmet-vim', { 'for': 'html' } " emmet support for vim - easily create markdup wth CSS-like syntax
+Plug 'gregsexton/MatchTag', { 'for': 'html' } " match tags in html, similar to paren support
+Plug 'othree/html5.vim', { 'for': 'html' } " html5 support
+Plug 'pangloss/vim-javascript', { 'for': 'javascript' } " JavaScript support
+Plug 'moll/vim-node', { 'for': 'javascript' } " node support
+" Plug 'jelera/vim-javascript-syntax', { 'for': 'javascript' } " JavaScript syntax plugin
+Plug 'othree/yajs.vim', { 'for': 'javascript' } " JavaScript syntax plugin
+Plug 'mxw/vim-jsx', { 'for': 'jsx' } " JSX support
+Plug 'elzr/vim-json', { 'for': 'json' } " JSON support
+" Plug 'Quramy/tsuquyomi', { 'for': 'typescript', 'do': 'npm install' } " extended typescript support - works as a client for TSServer
+Plug 'Shougo/vimproc.vim', { 'do': 'make' } " interactive command execution in vim
+Plug 'leafgarland/typescript-vim', { 'for': 'typescript' } " typescript support
+" Plug 'clausreinke/typescript-tools.vim', { 'for': 'typescript' } " typescript tools
+" Plug 'juvenn/mustache.vim', { 'for': 'mustache' } " mustache support
+Plug 'digitaltoad/vim-jade', { 'for': 'jade' } " jade support
+Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' } " sass scss syntax support
+Plug 'wavded/vim-stylus', { 'for': ['stylus', 'markdown'] } " markdown support
+Plug 'groenewege/vim-less', { 'for': 'less' } " less support
+Plug 'ap/vim-css-color', { 'for': ['css','stylus','scss'] } " set the background of hex color values to the color
+Plug 'hail2u/vim-css3-syntax', { 'for': 'css' } " CSS3 syntax support
+Plug 'itspriddle/vim-marked', { 'for': 'markdown', 'on': 'MarkedOpen' } " Open markdown files in Marked.app - mapped to <leader>m
+Plug 'tpope/vim-markdown', { 'for': 'markdown' } " markdown support
+Plug 'ekalinin/Dockerfile.vim'
+
+call plug#end()
+
 " }}}
 
 " NERDTree: {{{
-" autocmd StdinReadPre * let s:std_in=1
-" autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-" autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+" close NERDTree after a file is opened
+let g:NERDTreeQuitOnOpen=0
+let NERDTreeShowHidden=1
+let NERDTreeIgnore = ['\.js.map$']
+" expand to the path of the file in the current buffer
+nmap <silent> <leader>y :NERDTreeFind<cr>
+nmap <leader>nt :NERDTreeToggle<cr>
 " }}}
 
-" SpellBad Highlight: {{{
-highlight SpellBad   ctermbg=124
-" }}}
-
-" HTML: {{{
-"" HTML Tag Escape:
-""  http://vim.wikia.com/wiki/Escape_and_unescape_HTML_entities
-function HtmlEscape()
-    silent s/&/\&amp;/eg
-    silent s/</\&lt;/eg
-    silent s/>/\&gt;/eg
-    silent s/"/\&quot;/eg
-endfunction
-
-function HtmlUnEscape()
-    silent s/&lt;/</eg
-    silent s/&gt;/>/eg
-    silent s/&amp;/\&/eg
-    silent s/&quot;/"/eg
-endfunction
-
-function HtmlReIndent()
-    silent %s/\(<\/\w\+\)>\s\?</\1>
-</eg
-    normal gg=G
-endfunction
-"map <silent> <c-h> :call HtmlEscape()<CR>
-"map <silent> <c-u> :call HtmlUnEscape()<CR>
-
-"" HTML omni
-let b:html_omni_flavor = 'html5'
-" }}}
-
-" CoffeeTags: {{{
-if executable('coffeetags')
-    let g:tagbar_type_coffee = {
-            \ 'ctagsbin' : 'coffeetags',
-            \ 'ctagsargs' : '',
-            \ 'kinds' : [
-            \ 'f:functions',
-            \ 'o:object',
-            \ ],
-            \ 'sro' : ".",
-            \ 'kind2scope' : {
-            \ 'f' : 'object',
-            \ 'o' : 'object',
-            \ }
-            \ }
-endif
-" }}}
-
-" ctrlp: {{{
-
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-
-let g:ctrlp_show_hidden = 0
-let g:ctrlp_working_path_mode = 'ra'
-
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  'node_modules$\|\.git$\|\.meteor$\|\.svn$\|dist$\|\.hg$',
-  \ 'file': '\.DS_Store$\|\.jpg$\|\.png$\|\.jpeg$\|\.gif$\|\.svg$'
-  \ }
-
-" let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
-let g:ctrlp_user_command = {
-  \ 'types': {
-    \ 1: ['.git', 'cd %s && git ls-files . -co --exclude-standard', 'find %s -type f'],
-    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-    \ },
-  \ 'fallback': 'find %s -type f'
-  \ }
-
-let g:ctrlp_prompt_mappings = {
-  \ 'AcceptSelection("e")': [],
-  \ 'AcceptSelection("t")': ['<cr>', '<c-m>'],
-  \ }
-
-" }}}
-
-" Command Mapping: {{{
-com! -bang W :w
-com! -bang Wq :wq
-com! -bang Wqa :wqa
-com! -bang WQ :wq
-com! -bang WQa :wqa
-com! -bang WQA :wqa
-com! -bang Q :q
-com! -bang Qa :qa
-" }}}
-
-" Macros: {{{
-runtime macros/matchit.vim
+" Deoplete.nvim: {{{
+let g:deoplete#enable_at_startup = 1
 " }}}
 
 " Switch: {{{
+nnoremap <leader>- :Switch<cr>
 let g:switch_custom_definitions =
     \ [
     \   ['true', 'false'],
@@ -556,6 +249,53 @@ let g:switch_custom_definitions =
     \ ]
 " }}}
 
+" Fugitive.vim: {{{
+nmap <silent> <leader>gs :Gstatus<cr>
+nmap <leader>ge :Gedit<cr>
+nmap <silent><leader>gr :Gread<cr>
+nmap <silent><leader>gb :Gblame<cr>
+"  }}}
+
+" Neomake: {{{
+let g:neomake_javascript_jshint_maker = {
+    \ 'args': ['--verbose'],
+    \ 'errorformat': '%A%f: line %l\, col %v\, %m \(%t%*\d\)',
+\ }
+
+let g:neomake_typescript_tsc_maker = {
+    \ 'args': ['-m', 'commonjs', '--noEmit' ],
+    \ 'append_file': 0,
+    \ 'errorformat':
+        \ '%E%f %#(%l\,%c): error %m,' .
+        \ '%E%f %#(%l\,%c): %m,' .
+        \ '%Eerror %m,' .
+        \ '%C%\s%\+%m'
+\ }
+let g:neomake_javascript_enabled_makers = ['jshint', 'jscs']
+"  }}}
+
+" Airline: {{{
+let g:airline_powerline_fonts=1
+let g:airline_left_sep=''
+let g:airline_right_sep=''
+" let g:airline_theme='oceanicnext'
+"}}}
+
+" Markdown: {{{
+nmap <leader>m :MarkedOpen!<cr>
+nmap <leader>mq :MarkedQuit<cr>
+"  }}}
+
+" Limelight: {{{
+nmap <leader>f :Limelight!!<cr>
+"  }}}
+
+" Unite: {{{
+map  <C-p>     [unite]p
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_rank'])
+" }}}
+
 " Tern.js: {{{
 "" Jump to the definition of the thing under the cursor.
 map <leader>d :TernDef
@@ -565,10 +305,22 @@ map <leader>r :TernRefs
 map <leader>rn :TernRename
 "  }}}
 
-" Cosco: {{{
-command! CommaOrSemiColon call cosco#commaOrSemiColon()
-autocmd FileType javascript,css noremap <silent> <Leader>; :call cosco#commaOrSemiColon()<CR>
-autocmd FileType javascript,css inoremap <silent> <Leader>; <c-o>:call cosco#commaOrSemiColon()<CR>
+" Vim JSON: {{{
+" don't hide quotes in json files
+let g:vim_json_syntax_conceal = 0
+"  }}}
+
+" SuperTab: {{{
+let g:SuperTabCrMapping = 0
+"  }}}
+
+" vim-node: {{{
+autocmd User Node if &filetype == "javascript" | setlocal expandtab | endif
+"  }}}
+
+" fugitive.vim: {{{
+nmap <leader>gs :Gstatus<cr>
+nmap <leader>gp :Dispatch git push<cr>
 "  }}}
 
 " Easymotion: {{{
@@ -591,87 +343,255 @@ map <Leader>j <Plug>(easymotion-j)
 map <Leader>k <Plug>(easymotion-k)
 " }}}
 
-" JShint2: {{{
-let jshint2_read = 1
-let jshint2_save = 1
-let jshint2_confirm = 0
-let jshint2_error = 1
+" YankStack: {{{
+let g:yankstack_map_keys = 0
+nmap <leader>p <Plug>yankstack_substitute_older_paste
+nmap <leader>P <Plug>yankstack_substitute_newer_paste
 " }}}
 
-" vp doesn't replace paste buffer
-function! RestoreRegister()
-  let @" = s:restore_reg
-  return ''
-endfunction
-function! s:Repl()
-  let s:restore_reg = @"
-  return "p@=RestoreRegister()\<cr>"
-endfunction
-vmap <silent> <expr> p <sid>Repl()
+" vim-easy-align: {{{
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+" }}}
 
-" After Loading All Plugin: {{{
-function AfterStart ()
+" Gitgutter: {{{
+let g:gitgutter_realtime = 0 "Disable gitgutter in realtime
+let g:gitgutter_eager = 0 "Disable gitgutter to eager load on tab or buffer switch
+" }}}
 
-" plugin commands
-"" Align
-if exists(":Align")
-    com! -bang -range -nargs=* A <line1>,<line2>call Align#Align(<bang>0,<q-args>)
+" Section General {{{
+" Abbreviations
+abbr funciton function
+abbr tempalte template
+
+" not compatible with vi
+set nocompatible
+" detect when a file is changed
+set autoread
+" make backspace behave in a sane manner
+set backspace=indent,eol,start
+" set a map leader for more key combos
+let mapleader = ','
+let g:mapleader = ','
+set showtabline=2 " always show tab line
+set textwidth=120
+" Tab control
+set noexpandtab " insert tabs rather than spaces for <Tab>
+set smarttab " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
+set tabstop=2 " the visible width of tabs
+set softtabstop=2 " edit as if the tabs are 4 characters wide
+set shiftwidth=2 " number of spaces to use for indent and unindent
+set shiftround " round indent to a multiple of 'shiftwidth'
+set fileformats+=mac
+set sessionoptions-=options
+
+if has('mouse')
+  set mouse=a
 endif
+" http://stackoverflow.com/questions/30691466/what-is-difference-between-vims-clipboard-unnamed-and-unnamedplus-settings
+set clipboard^=unnamed,unnamedplus
+" faster redrawing
+set ttyfast
 
-"" eregex
-if exists(":M")
-    nnoremap <leader>/ :call eregex#toggle()<CR>
-endif
+set diffopt+=vertical
+" highlight conflicts
+match ErrorMsg '^\(<\|=\|>\)\{7\}\([^=].\+\)\?$'
+set laststatus=2 " show the satus line all the time
+set display+=lastline
+" }}}
 
-if exists(":NERDTreeToggle")
-    map <F12> :NERDTreeToggle<CR>
-endif
+" Section User Interface {{{
 
-"" Speeddating.vim
-if exists(":SpeedDatingFormat")
-    SpeedDatingFormat %H:%M
-    SpeedDatingFormat %m/%d
-    SpeedDatingFormat %Y/%m/%d%[ T_-]%H:%M:%S%?[Z]
-endif
+" code folding settings
+set foldmethod=syntax " fold based on indent
+set foldnestmax=10 " deepest fold is 10 levels
+set nofoldenable " don't fold by default
+set foldlevel=1
 
-" Fix for vim-snipmate
+set so=7 " set 7 lines to the cursors - when moving vertical
+set wildmenu " enhanced command line completion
+set hidden " current buffer can be put into background
+set showcmd " show incomplete commands
+set noshowmode " don't show which mode disabled for PowerLine
+set wildmode=list:longest " complete files like a shell
+set scrolloff=3 " lines of text around cursor
+set shell=$SHELL
+set cmdheight=1 " command bar height
+set nrformats-=octal
+set confirm
+set completeopt+=longest
+
+set title " set terminal title
+
+" Searching
+set ignorecase " case insensitive searching
+set smartcase " case-sensitive if expresson contains a capital letter
+set hlsearch
+set incsearch " set incremental search, like modern browsers
+set nolazyredraw " don't redraw while executing macros
+
+set magic " Set magic on, for regex
+
+set showmatch " show matching braces
+
+" No annoying sound on errors
+set belloff=all
+
+" switch syntax highlighting on
+syntax on
+
+set encoding=utf-8
+set fileencodings=utf-8
+set ambiwidth=double
+let base16colorspace=256  " Access colors present in 256 colorspace
+set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors"
+execute "set background=".$BACKGROUND
+execute "colorscheme ".$THEME
+highlight Comment cterm=italic
+
+set number " show line numbers
+" set relativenumber " show relative line numbers
+
+set wrap "turn on line wrapping
+set wrapmargin=8 " wrap lines when coming within n characters from side
+set linebreak " set soft wrapping
+let &showbreak='…' " show ellipsis at breaking
+
+set autoindent " automatically set indent of new line
+set smartindent
+" }}}
+
+" Section AutoGroups {{{
+" file type specific settings
+augroup configgroup
+  autocmd!
+  autocmd FileType vim set ts=2 sw=2 sts=2
+  autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
+  autocmd FileType ruby setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType html setlocal ts=4 sts=4 sw=4 noexpandtab indentkeys-=*<return>
+  autocmd FileType jade setlocal ts=2 sts=2 sw=2 noexpandtab
+  " autocmd FileType *.md.js :call SyntasticReset<cr>
+  autocmd FileType markdown,textile setlocal textwidth=0 wrapmargin=0 wrap spell
+  autocmd FileType .xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
+  autocmd FileType crontab setlocal nobackup nowritebackup
+
+  " automatically resize panes on resize
+  autocmd VimResized * exe 'normal! \<c-w>='
+  autocmd BufWritePost .vimrc source %
+  autocmd BufWritePost .vimrc.local source %
+  " save all files on focus lost, ignoring warnings about untitled buffers
+  autocmd FocusLost * silent! wa
+
+  autocmd BufNewFile,BufRead *.ejs set filetype=html
+  autocmd BufNewFile,BufRead *.ino set filetype=c
+  autocmd BufNewFile,BufRead *.svg set filetype=xml
+  autocmd BufNewFile,BufRead .babelrc set filetype=json
+  autocmd BufNewFile,BufRead .jshintrc set filetype=json
+  autocmd BufNewFile,BufRead .eslintrc set filetype=json
+
+  " make quickfix windows take all the lower section of the screen
+  " when there are multiple windows open
+  autocmd FileType qf wincmd J
+
+  autocmd BufNewFile,BufReadPost *.md set filetype=markdown
+  let g:markdown_fenced_languages = ['css', 'javascript', 'js=javascript', 'json=javascript', 'stylus', 'html']
+
+  " autocmd! BufEnter * call ApplyLocalSettings(expand('<afile>:p:h'))
+
+  autocmd BufNewFile,BufRead,BufWrite *.md syntax match Comment /\%^---\_.\{-}---$/
+
+  autocmd! BufWritePost * Neomake
+  autocmd BufWritePre * call StripTrailingWhitespace()
+augroup END
+
+" }}}
+
+" Section Mappings {{{
+
+" markdown to html
+nmap <leader>md :%!markdown --html4tags <cr>
+
+" wipout buffer
+nmap <silent> <leader>b :bw<cr>
+
+" disable Ex mode
+noremap Q <NOP>
+
+" activate spell-checking alternatives
+nmap ;s :set invspell spelllang=en<cr>
+
+" toggle invisible characters
+set invlist
+set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+" make the highlighting of tabs less annoying
+highlight SpecialKey ctermbg=none
+set showbreak=↪
+nmap <leader>l :set list!<cr>
+
+" tab to indent
 nmap <tab> V>
 vmap <tab> >gv
+nmap <s-tab> V<
+vmap <s-tab> <gv
 
-" yankstack
-nmap Y y$
-
-endfunction
-autocmd VimEnter * :call AfterStart()
-" }}}
-
-map <C-h> :echo "hi<" . synIDattr(synID(line("."),col("."),1),"name") . '> trans<'
-      \ . synIDattr(synID(line("."),col("."),0),"name") . "> lo<"
-      \ . synIDattr(synIDtrans(synID(line("."),col("."),1)),"name") . ">"<CR>
-
-" comment
-map <Leader><Leader>c <Leader>c<space>
-
-" remove tailing whitespace;
-autocmd BufWritePre * :%s/\s\+$//e
-
-" move around tabs. conflict with the original screen top/bottom
-" comment them out if you want the original H/L
+" tab control
+nmap <leader>tn :tabnew<cr>
+nmap <leader>te :tabedit
+nmap <leader>tx :tabedit .<cr>
+nmap <leader>th :tab help<cr>
 " go to prev tab
 map <S-H> gT
 " go to next tab
 map <S-L> gt
 
+" switch between current and last buffer
+nmap <leader>. <c-^>
+
+map <silent> <C-h> :call WinMove('h')<cr>
+map <silent> <C-j> :call WinMove('j')<cr>
+map <silent> <C-k> :call WinMove('k')<cr>
+map <silent> <C-l> :call WinMove('l')<cr>
+
+map <leader>wc :wincmd q<cr>
+
+" toggle cursor line
+nnoremap <leader>i :set cursorline!<cr>
+
+" scroll the viewport faster
+nnoremap <C-e> 3<C-e>
+nnoremap <C-y> 3<C-y>
+
+" moving up and down work as you would expect
+nnoremap <silent> j gj
+nnoremap <silent> k gk
+nnoremap <silent> ^ g^
+nnoremap <silent> $ g$
+
+" search for word under the cursor
+nnoremap <leader>/ "fyiw :/<c-r>f<cr>
+
+" inoremap <tab> <c-r>=Smart_TabComplete()<CR>
+
+map <leader>r :call RunCustomCommand()<cr>
+" map <leader>s :call SetCustomCommand()<cr>
+let g:silent_custom_command = 0
+
+" helpers for dealing with other people's code
+nmap \t :set ts=2 sts=2 sw=2 noet<cr>
+nmap \s :set ts=2 sts=2 sw=2 et<cr>
+
+nmap <leader>w :setf textile<cr> :Goyo<cr>
+
 " Resize split window
 nmap + <C-W>+
 nmap - <C-W>-
-
-" Resize vsplit window
-nmap <Right> <C-w>>
-nmap <Left> <C-w><
 
 " quick open vimrc in a new tab
 nmap <leader>v :tabe $MYVIMRC<CR>
 
 " hit enter to cancel searched highlight
 noremap <CR> :nohlsearch<CR>
+
+" }}}
+
