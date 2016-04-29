@@ -178,14 +178,11 @@ Plug 'benekastah/neomake' " neovim replacement for syntastic using neovim's job 
 Plug 'tpope/vim-fugitive' " amazing git wrapper for vim
 Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
 Plug 'editorconfig/editorconfig-vim' " .editorconfig support
-Plug 'sotte/presenting.vim', { 'for': 'markdown' } " a simple tool for presenting slides in vim based on text files
-" Plug 'ervandew/supertab' " Perform all your vim insert mode completions with Tab
 Plug 'tpope/vim-dispatch' " asynchronous build and test dispatcher
 Plug 'AndrewRadev/splitjoin.vim' " single/multi line code handler: gS - split one line into multiple, gJ - combine multiple lines into one
 Plug 'vim-scripts/matchit.zip' " extended % matching
 Plug 'tpope/vim-sleuth' " detect indent style (tabs vs. spaces)
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } " distraction-free writing
-Plug 'junegunn/limelight.vim', { 'on': 'Limelight' } " focus tool. Good for presentating with vim
 Plug 'Yggdroot/indentLine' "A vim plugin to display the indention levels with thin vertical lines
 
 " language-specific plugins
@@ -395,10 +392,6 @@ nmap <leader>m :MarkedOpen!<cr>
 nmap <leader>mq :MarkedQuit<cr>
 "  }}}
 
-" Limelight: {{{
-nmap <leader>f :Limelight!!<cr>
-"  }}}
-
 " Unite: {{{
 let g:unite_data_directory='~/.nvim/.cache/unite'
 let g:unite_source_history_yank_enable=1
@@ -549,7 +542,7 @@ execute "set background=".$BACKGROUND
 execute "colorscheme ".$THEME
 highlight Comment cterm=italic
 
-set relativenumber number " show line numbers
+set number " show line numbers
 
 set wrap "turn on line wrapping
 set wrapmargin=8 " wrap lines when coming within n characters from side
@@ -579,8 +572,6 @@ augroup configgroup
 
   " automatically resize panes on resize
   autocmd VimResized * exe 'normal! \<c-w>='
-  autocmd BufWritePost .vimrc source %
-  autocmd BufWritePost .vimrc.local source %
   " save all files on focus lost, ignoring warnings about untitled buffers
   autocmd FocusLost * silent! wa
 
