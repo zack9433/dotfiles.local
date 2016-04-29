@@ -21,7 +21,10 @@ brew install zsh
 brew install highlight
 brew install nvm
 brew install markdown
-brew install the_silver_searcher
+brew install pt
+brew install fzf
+# Install shell extensions
+/usr/local/opt/fzf/install
 
 # install neovim
 brew install neovim/neovim/neovim

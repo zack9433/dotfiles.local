@@ -159,8 +159,8 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'mhinz/vim-sayonara' " Sane buffer/window deletion.
 Plug 'mattn/webapi-vim' " vim interface to Web API
 Plug 'terryma/vim-multiple-cursors'
+Plug 'rking/ag.vim'
 Plug 'Shougo/neco-vim', { 'for': 'vim' }
-Plug 'rking/ag.vim' " Vim plugin for the_silver_searcher
 Plug 'maxbrunsfeld/vim-yankstack' " A lightweight implementation of emacs's kill-ring for vim
 Plug 'junegunn/vim-easy-align' " A Vim alignment plugin
 Plug 'AndrewRadev/switch.vim' " A simple Vim plugin to switch segments of text with predefined replacements
@@ -400,7 +400,6 @@ let g:unite_source_rec_async_command =['ag', '--follow', '--nocolor', '--nogroup
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
 nnoremap <silent> <c-p> :Unite -auto-resize -start-insert -direction=botright file_rec/async<CR>
-nnoremap <silent> <leader>c :Unite -auto-resize -start-insert -direction=botright colorscheme<CR>
 " }}}
 
 " Git from unite...ERMERGERD ------------------------------------------------{{{
@@ -519,9 +518,10 @@ set ignorecase " case insensitive searching
 set smartcase " case-sensitive if expresson contains a capital letter
 set hlsearch
 set incsearch " set incremental search, like modern browsers
-set nolazyredraw " don't redraw while executing macros
+set lazyredraw
 
 set magic " Set magic on, for regex
+set ttimeout " Fast timeout
 
 set showmatch " show matching braces
 
@@ -607,6 +607,31 @@ augroup configgroup
   autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
   autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
 augroup END
+
+function! s:EscapeUnite()
+    augroup CloseUniteBuffer
+        autocmd!
+        autocmd InsertEnter <buffer>
+            \ let b:close = 0 |
+            \ let g:udt = &updatetime |
+            \ set updatetime=3
+
+        autocmd InsertLeave <buffer>
+            \ let b:close = 1
+
+        autocmd BufLeave,CursorHold <buffer>
+            \ let &updatetime = g:udt |
+            \ unlet g:udt
+
+        autocmd CursorHold <buffer>
+            \ if b:close | close | endif
+    augroup END
+endfunction
+
+augroup EscapeUnite
+    autocmd!
+    autocmd FileType unite call s:EscapeUnite()
+augroup END
 " }}}
 
 " Section Mappings {{{
@@ -650,10 +675,10 @@ map <S-L> gt
 " switch between current and last buffer
 nmap <leader>. <c-^>
 
-map <silent> <C-h> :call WinMove('h')<cr>
-map <silent> <C-j> :call WinMove('j')<cr>
-map <silent> <C-k> :call WinMove('k')<cr>
-map <silent> <C-l> :call WinMove('l')<cr>
+" map <silent> <C-h> :call WinMove('h')<cr>
+" map <silent> <C-j> :call WinMove('j')<cr>
+" map <silent> <C-k> :call WinMove('k')<cr>
+" map <silent> <C-l> :call WinMove('l')<cr>
 
 map <leader>wc :wincmd q<cr>
 
