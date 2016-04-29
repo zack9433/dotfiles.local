@@ -51,6 +51,23 @@ set-option -g set-titles-string "#T - #W"
 ######################
 #### Key Bindings ####
 ######################
+bind v split-window -h
+bind C-v split-window -h
+
+bind l split-window -h
+bind C-l split-window -h
+
+bind s split-window -v
+bind C-s split-window -v
+
+bind j split-window -v
+bind C-j split-window -v
+
+bind-key q kill-window
+bind-key C-q kill-window
+
+bind-key x kill-pane
+bind-key C-x kill-pane
 
 # reload config file
 bind r source-file ~/.tmux.conf \; display "Config Reloaded!"
@@ -83,7 +100,7 @@ bind -r K resize-pane -U 10
 bind -r L resize-pane -R 10
 
 # enable mouse support for switching panes/windows
-# setw -g mouse on
+# mouse on
 # set-option -g -q mouse on
 
 bind-key -T root PPage if-shell -F "#{alternate_on}" "send-keys PPage" "copy-mode -e; send-keys PPage"
