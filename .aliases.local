@@ -1,5 +1,7 @@
 # Include git aliases
-source $HOME/dotfiles.local/git/aliases
+source $HOME/dotfiles.local/git/aliases.zsh
+# Include tmux aliases
+source $HOME/dotfiles.local/tmux/aliases.zsh
 
 # reload zsh config
 alias reload!='source ~/.zshrc'
