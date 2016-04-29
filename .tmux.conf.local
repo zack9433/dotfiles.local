@@ -48,6 +48,10 @@ set-option -g set-titles on
 set-option -g set-titles-string "#T - #W"
 # set-window-option -g automatic-rename on
 
+# enable mouse support for switching panes/windows
+set-option -g -q mouse on
+
+
 ######################
 #### Key Bindings ####
 ######################
@@ -69,6 +73,9 @@ bind-key C-q kill-window
 bind-key x kill-pane
 bind-key C-x kill-pane
 
+bind-key c command-prompt -p "Project:" "new-window -n '%%'"
+bind-key C-c command-prompt -p "Project:" "new-window -n '%%'"
+
 # reload config file
 bind r source-file ~/.tmux.conf \; display "Config Reloaded!"
 
@@ -76,8 +83,8 @@ bind r source-file ~/.tmux.conf \; display "Config Reloaded!"
 bind N new-window
 
 # split window and fix path for tmux 1.9
-bind | split-window -h -c "#{pane_current_path}"
-bind - split-window -v -c "#{pane_current_path}"
+#bind | split-window -h -c "#{pane_current_path}"
+#bind - split-window -v -c "#{pane_current_path}"
 
 # synchronize all panes in a window
 bind y setw synchronize-panes
@@ -98,9 +105,6 @@ bind -r H resize-pane -L 10
 bind -r J resize-pane -D 10
 bind -r K resize-pane -U 10
 bind -r L resize-pane -R 10
-
-# enable mouse support for switching panes/windows
-set-option -g -q mouse on
 
 bind-key -T root PPage if-shell -F "#{alternate_on}" "send-keys PPage" "copy-mode -e; send-keys PPage"
 bind-key -t vi-copy PPage page-up
