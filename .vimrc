@@ -153,6 +153,7 @@ Plug 'Shougo/neosnippet-snippets' " The standard snippets repository for neosnip
 Plug 'honza/vim-snippets' " vim-snipmate default snippets
 
 " utilities
+Plug 'neilagabriel/vim-geeknote' " Vim plugin for Geeknote
 Plug 'easymotion/vim-easymotion'
 Plug 'mhinz/vim-signify'
 Plug 'Chiel92/vim-autoformat'
@@ -214,6 +215,11 @@ Plug 'ekalinin/Dockerfile.vim'
 call plug#end()
 
 " }}}
+
+" Geeknote: {{{
+let g:GeeknoteFormat="markdown"
+noremap <F8> :Geeknote<cr>
+"  }}}
 
 " Emmet: {{{
 " " Enable Emmet in all modes
