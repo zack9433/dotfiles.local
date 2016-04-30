@@ -68,40 +68,6 @@ fun! StripTrailingWhitespace()
     %s/\s\+$//e
 endfun
 
-" Window movement shortcuts
-" move to the window in the direction shown, or create a new window
-function! WinMove(key)
-    let t:curwin = winnr()
-    exec "wincmd ".a:key
-    if (t:curwin == winnr())
-        if (match(a:key,'[jk]'))
-            wincmd v
-        else
-            wincmd s
-        endif
-        exec "wincmd ".a:key
-    endif
-endfunction
-
-" recursively search up from dirname, sourcing all .vimrc.local files along the way
-function! ApplyLocalSettings(dirname)
-    " convert windows paths to unix style
-    let l:curDir = substitute(a:dirname, '\\', '/', 'g')
-
-    " walk to the top of the dir tree
-    let l:parentDir = strpart(l:curDir, 0, strridx(l:curDir, '/'))
-    if isdirectory(l:parentDir)
-        call ApplyLocalSettings(l:parentDir)
-    endif
-
-    " now walk back down the path and source .vimsettings as you find them.
-    " child directories can inherit from their parents
-    let l:settingsFile = a:dirname . '/.vimrc.local'
-    if filereadable(l:settingsFile)
-        exec ':source' . l:settingsFile
-    endif
-endfunction
-
 function! DoRemote(arg)
   UpdateRemotePlugins
 endfunction
@@ -118,6 +84,29 @@ function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
 exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
 exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
 endfunction
+
+
+" Window navigation function
+" Make ctrl-h/j/k/l move between windows and auto-insert in terminals
+func! s:mapMoveToWindowInDirection(direction)
+    func! s:maybeInsertMode(direction)
+        stopinsert
+        execute "wincmd" a:direction
+
+        if &buftype == 'terminal'
+            startinsert!
+        endif
+    endfunc
+
+    execute "tnoremap" "<silent>" "<C-" . a:direction . ">"
+                \ "<C-\\><C-n>"
+                \ ":call <SID>maybeInsertMode(\"" . a:direction . "\")<CR>"
+    execute "nnoremap" "<silent>" "<C-" . a:direction . ">"
+                \ ":call <SID>maybeInsertMode(\"" . a:direction . "\")<CR>"
+endfunc
+for dir in ["h", "j", "l", "k"]
+    call s:mapMoveToWindowInDirection(dir)
+endfor
 
 " }}}
 
@@ -609,7 +598,7 @@ augroup configgroup
 
   autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
   autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
-	" auto-insert in neovim terminals
+	" auto-insert in terminals when focus in terminal window
 	autocmd BufEnter * if &buftype == 'terminal' | :startinsert | endif
 augroup END
 
@@ -680,10 +669,8 @@ map <S-L> gt
 " switch between current and last buffer
 nmap <leader>. <c-^>
 
-" map <silent> <C-h> :call WinMove('h')<cr>
-" map <silent> <C-j> :call WinMove('j')<cr>
-" map <silent> <C-k> :call WinMove('k')<cr>
-" map <silent> <C-l> :call WinMove('l')<cr>
+" Terminal settings
+tnoremap <ESC> <C-\><C-n>
 
 map <leader>wc :wincmd q<cr>
 
