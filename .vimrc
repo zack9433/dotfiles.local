@@ -179,7 +179,7 @@ Plug 'benekastah/neomake' " neovim replacement for syntastic using neovim's job 
 Plug 'tpope/vim-fugitive' " amazing git wrapper for vim
 Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
 Plug 'editorconfig/editorconfig-vim' " .editorconfig support
-Plug 'tpope/vim-dispatch' " asynchronous build and test dispatcher
+Plug 'tpope/vim-dispatch' | Plug 'radenling/vim-dispatch-neovim'" asynchronous build and test dispatcher
 Plug 'AndrewRadev/splitjoin.vim' " single/multi line code handler: gS - split one line into multiple, gJ - combine multiple lines into one
 Plug 'vim-scripts/matchit.zip' " extended % matching
 Plug 'tpope/vim-sleuth' " detect indent style (tabs vs. spaces)
@@ -222,10 +222,10 @@ noremap <F8> :Geeknote<cr>
 
 " Emmet: {{{
 " " Enable Emmet in all modes
-	" Remapping <C-y>, just doesn't cut it.
+  " Remapping <C-y>, just doesn't cut it.
   function! s:expand_html_tab()
-	" try to determine if we're within quotes or tags.
-	" if so, assume we're in an emmet fill area.
+  " try to determine if we're within quotes or tags.
+  " if so, assume we're in an emmet fill area.
    let line = getline('.')
    if col('.') < len(line)
      let line = matchstr(line, '[">][^<"]*\%'.col('.').'c[^>"]*[<"]')
@@ -233,11 +233,11 @@ noremap <F8> :Geeknote<cr>
         return "\<C-n>"
      endif
    endif
-	" expand anything emmet thinks is expandable.
+  " expand anything emmet thinks is expandable.
   if emmet#isExpandable()
     return "\<C-y>,"
   endif
-	" return a regular tab character
+  " return a regular tab character
   return "\<tab>"
   endfunction
   autocmd FileType html,markdown imap <buffer><expr><tab> <sid>expand_html_tab()
@@ -542,6 +542,7 @@ set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors"
 execute "set background=".$BACKGROUND
 execute "colorscheme ".$THEME
 highlight Comment cterm=italic
+highlight TermCursor ctermfg=red guifg=red
 
 set number " show line numbers
 
@@ -608,6 +609,8 @@ augroup configgroup
 
   autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
   autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
+	" auto-insert in neovim terminals
+	autocmd BufEnter * if &buftype == 'terminal' | :startinsert | endif
 augroup END
 
 function! s:EscapeUnite()
