@@ -184,7 +184,6 @@ Plug 'AndrewRadev/splitjoin.vim' " single/multi line code handler: gS - split on
 Plug 'vim-scripts/matchit.zip' " extended % matching
 Plug 'tpope/vim-sleuth' " detect indent style (tabs vs. spaces)
 Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } " distraction-free writing
-Plug 'Yggdroot/indentLine' "A vim plugin to display the indention levels with thin vertical lines
 
 " language-specific plugins
 Plug 'mattn/emmet-vim', { 'for': 'html' } " emmet support for vim - easily create markdup wth CSS-like syntax
@@ -284,10 +283,6 @@ let g:multi_cursor_quit_key='<Esc>'
 " AutoFormat: {{{
 " ,f to format code, requires formatters: read the docs
 noremap <leader>f :Autoformat<CR>
-" }}}
-
-" IndentLine: {{{
-let g:indentLine_char='│'
 " }}}
 
 " vim-table: {{{
@@ -568,6 +563,7 @@ augroup configgroup
   autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
   autocmd FileType ruby setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType html setlocal ts=4 sts=4 sw=4 noexpandtab indentkeys-=*<return>
+  autocmd FileType html setlocal ts=4 sts=4 sw=4 noexpandtab
   autocmd FileType jade setlocal ts=2 sts=2 sw=2 noexpandtab
   autocmd FileType markdown,textile setlocal textwidth=0 wrapmargin=0 wrap spell
   autocmd FileType .xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
