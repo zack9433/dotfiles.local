@@ -12,6 +12,7 @@ set conceallevel=0
 " not compatible with vi
 set nocompatible
 set noswapfile
+set nobackup
 " detect when a file is changed
 set autoread
 " make backspace behave in a sane manner
@@ -43,6 +44,15 @@ set display+=lastline
 " }}}
 
 " Section Functions {{{
+
+function! InsertTabWrapper()
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k'
+        return "\<tab>"
+    else
+        return "\<c-p>"
+    endif
+endfunction
 
 function! MyFoldText() " {{{
     let line = getline(v:foldstart)
@@ -503,6 +513,7 @@ set lazyredraw
 
 set magic " Set magic on, for regex
 set ttimeout " Fast timeout
+set ttimeoutlen=20
 
 set showmatch " show matching braces
 
@@ -523,6 +534,8 @@ execute "set background=".$BACKGROUND
 execute "colorscheme ".$THEME
 highlight Comment cterm=italic
 highlight TermCursor ctermfg=red guifg=red
+" Highlight line number of where cursor currently is
+highlight CursorLineNr guifg=#050505
 
 set number " show line numbers
 
@@ -590,8 +603,9 @@ augroup configgroup
 
   autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
   autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
-	" auto-insert in terminals when focus in terminal window
-	autocmd BufEnter * if &buftype == 'terminal' | :startinsert | endif
+  " auto-insert in terminals when focus in terminal window
+  autocmd BufEnter * if &buftype == 'terminal' | :startinsert | endif
+  inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
 augroup END
 
 function! s:EscapeUnite()
@@ -622,6 +636,8 @@ augroup END
 
 " Section Mappings {{{
 
+inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
+
 " markdown to html
 nmap <leader>md :%!markdown --html4tags <cr>
 
@@ -636,7 +652,7 @@ nmap ;s :set invspell spelllang=en<cr>
 
 " toggle invisible characters
 set invlist
-set listchars=eol:¬,trail:⋅,extends:❯,precedes:❮
+set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
 " make the highlighting of tabs less annoying
 highlight SpecialKey ctermbg=none
 set showbreak=↪
