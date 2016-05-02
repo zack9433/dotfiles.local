@@ -134,6 +134,7 @@ Plug 'tmux-plugins/vim-tmux-focus-events'
 Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') } | Plug 'Konfekt/FastFold' " Dark powered asynchronous completion framework for neovim
 Plug 'Shougo/neoinclude.vim'
 Plug 'ujihisa/neco-look' " A neocomplcache plugin for English, using look command
+Plug 'Shougo/neco-vim', { 'for': 'vim' }
 Plug 'rhysd/github-complete.vim' " Vim input completion for GitHub
 
 " Snippets
@@ -150,7 +151,6 @@ Plug 'mhinz/vim-sayonara' " Sane buffer/window deletion.
 Plug 'mattn/webapi-vim' " vim interface to Web API
 Plug 'terryma/vim-multiple-cursors'
 Plug 'rking/ag.vim'
-Plug 'Shougo/neco-vim', { 'for': 'vim' }
 Plug 'maxbrunsfeld/vim-yankstack' " A lightweight implementation of emacs's kill-ring for vim
 Plug 'junegunn/vim-easy-align' " A Vim alignment plugin
 Plug 'AndrewRadev/switch.vim' " A simple Vim plugin to switch segments of text with predefined replacements
@@ -210,30 +210,9 @@ noremap <F8> :Geeknote<cr>
 "  }}}
 
 " Emmet: {{{
-" " Enable Emmet in all modes
-  " Remapping <C-y>, just doesn't cut it.
-  function! s:expand_html_tab()
-  " try to determine if we're within quotes or tags.
-  " if so, assume we're in an emmet fill area.
-   let line = getline('.')
-   if col('.') < len(line)
-     let line = matchstr(line, '[">][^<"]*\%'.col('.').'c[^>"]*[<"]')
-     if len(line) >= 2
-        return "\<C-n>"
-     endif
-   endif
-  " expand anything emmet thinks is expandable.
-  if emmet#isExpandable()
-    return "\<C-y>,"
-  endif
-  " return a regular tab character
-  return "\<tab>"
-  endfunction
-  autocmd FileType html,markdown imap <buffer><expr><tab> <sid>expand_html_tab()
-  let g:user_emmet_mode='a'
-  let g:user_emmet_complete_tag = 1
-  let g:user_emmet_install_global = 0
-  autocmd FileType html,css EmmetInstall
+let g:user_emmet_complete_tag = 1
+let g:user_emmet_install_global = 0
+autocmd FileType html,css EmmetInstall
 " }}}
 
 " neosnippet: {{{
@@ -316,6 +295,18 @@ call NERDTreeHighlightFile('gitconfig', 'Gray', 'none', '#686868', '#141e23')
 call NERDTreeHighlightFile('gitignore', 'Gray', 'none', '#686868', '#141e23')
 call NERDTreeHighlightFile('bashrc', 'Gray', 'none', '#686868', '#141e23')
 call NERDTreeHighlightFile('bashprofile', 'Gray', 'none', '#686868', '#141e23')
+" }}}
+
+" github-completion: {{{
+if !exists('g:neocomplete#sources#omni#input_patterns')
+    let g:neocomplete#sources#omni#input_patterns = {}
+endif
+let g:neocomplete#sources#omni#input_patterns.markdown = ''
+let g:neocomplete#sources#omni#input_patterns.gitcommit = ''
+" Disable overwriting 'omnifunc'
+" let g:github_complete_enable_omni_completion = 0
+" autocmd FileType markdown,gitcommit
+"     \ imap <C-x><C-x> <Plug>(github-complete-manual-completion)
 " }}}
 
 " Deoplete.nvim: {{{
@@ -573,6 +564,7 @@ augroup configgroup
   autocmd BufNewFile,BufRead .babelrc set filetype=json
   autocmd BufNewFile,BufRead .jshintrc set filetype=json
   autocmd BufNewFile,BufRead .eslintrc set filetype=json
+  autocmd BufNewFile,BufRead *.es6 set filetype=javascript
 
   " make quickfix windows take all the lower section of the screen
   " when there are multiple windows open
