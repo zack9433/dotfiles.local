@@ -390,7 +390,7 @@ let g:unite_prompt='» '
 let g:unite_source_rec_async_command =['ag', '--follow', '--nocolor', '--nogroup','--hidden', '-g', '', '--ignore', '.git', '--ignore', '*.png', '--ignore', 'lib']
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
-nnoremap <silent> <c-p> :Unite -auto-resize -start-insert -direction=botright file_rec/async<CR>
+nnoremap <silent> <c-p> :Unite -auto-resize -start-insert file_rec/async<CR>
 " }}}
 
 " Git from unite...ERMERGERD ------------------------------------------------{{{
