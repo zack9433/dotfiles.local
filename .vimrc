@@ -45,15 +45,6 @@ set display+=lastline
 
 " Section Functions {{{
 
-function! InsertTabWrapper()
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k'
-        return "\<tab>"
-    else
-        return "\<c-p>"
-    endif
-endfunction
-
 function! MyFoldText() " {{{
     let line = getline(v:foldstart)
 
@@ -427,7 +418,7 @@ let g:unite_source_menu_menus.git.command_candidates = [
   \[' git grep',  'exe "Ggrep " input("string: ")'],
   \[' git prompt', 'exe "Git! " input("command: ")'],
   \] " Append ' --' after log to get commit info commit buffers
-nnoremap <silent> <Leader>g :Unite -direction=botright -silent -buffer-name=git -start-insert menu:git<CR>
+nnoremap <silent> <Leader>g :Unite -silent -buffer-name=git -start-insert menu:git<CR>
 "}}}
 
 " Vim JSON: {{{
@@ -605,7 +596,6 @@ augroup configgroup
   autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
   " auto-insert in terminals when focus in terminal window
   autocmd BufEnter * if &buftype == 'terminal' | :startinsert | endif
-  inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
 augroup END
 
 function! s:EscapeUnite()
@@ -635,8 +625,6 @@ augroup END
 " }}}
 
 " Section Mappings {{{
-
-inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
 
 " markdown to html
 nmap <leader>md :%!markdown --html4tags <cr>
