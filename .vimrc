@@ -121,10 +121,11 @@ Plug 'h1mesuke/unite-outline'
 Plug 'Shougo/neomru.vim'
 Plug 'rstacruz/vim-fastunite'
 
+" Neovim Terminal
+Plug 'kassio/neoterm' | Plug 'hkupty/nvimux'
+
 " Tmux
 Plug 'christoomey/vim-tmux-navigator'
-" Plug 'tmux-plugins/vim-tmux'
-" Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " Completion
 Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') } | Plug 'Konfekt/FastFold' " Dark powered asynchronous completion framework for neovim
@@ -199,6 +200,19 @@ Plug 'ekalinin/Dockerfile.vim'
 call plug#end()
 
 " }}}
+
+" Neoterm: {{{
+"let g:neoterm_position = 'horizontal'
+"let g:neoterm_automap_keys = ',tt'
+" Useful maps
+" hide/close terminal
+nnoremap <silent> <leader>tc :Ttoggle<cr><esc>
+" clear terminal
+nnoremap <silent> <leader>tl :call neoterm#clear()<cr>
+" kills the current job (send a <c-c>)
+nnoremap <silent> <leader>tk :call neoterm#kill()<cr>
+tnoremap <silent> <leader>tc <C-\><C-n>:Ttoggle<cr><esc>
+"  }}}
 
 " Geeknote: {{{
 let g:GeeknoteFormat="markdown"
