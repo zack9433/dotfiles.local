@@ -266,7 +266,7 @@ let g:perl_fold = 1
 " close NERDTree after a file is opened
 let g:NERDTreeQuitOnOpen=1
 let NERDTreeShowHidden=1
-let g:NERDTreeWinSize=45
+" let g:NERDTreeWinSize=45
 let g:NERDTreeAutoDeleteBuffer=1
 let NERDTreeIgnore = ['\.js.map$']
 " expand to the path of the file in the current buffer
@@ -455,16 +455,15 @@ set nofoldenable " don't fold by default
 set foldlevel=99
 set foldtext=MyFoldText()
 
-set so=7 " set 7 lines to the cursors - when moving vertical
 set wildmenu " enhanced command line completion
 set wildmode=full
 set hidden " current buffer can be put into background
 set showcmd " show incomplete commands
 set noshowmode " don't show which mode disabled for PowerLine
 set scrolloff=3 " lines of text around cursor
-set shell=$SHELL
-set cmdheight=1 " command bar height
-set nrformats-=octal
+" set shell=$SHELL
+" set cmdheight=1 " command bar height
+" set nrformats-=octal
 set confirm
 set complete=.,w,b,u,t,k " http://usevim.com/2015/06/03/spelling-tips/
 set completeopt+=noselect,menu,preview
@@ -508,7 +507,7 @@ set number " show line numbers
 set wrap "turn on line wrapping
 set wrapmargin=8 " wrap lines when coming within n characters from side
 set linebreak " set soft wrapping
-let &showbreak='…' " show ellipsis at breaking
+" let &showbreak='…' " show ellipsis at breaking
 
 set autoindent " automatically set indent of new line
 set smartindent
@@ -614,10 +613,10 @@ noremap Q <NOP>
 nmap ;s :set invspell spelllang=en<cr>
 
 " toggle invisible characters
-set invlist
-set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
+" set invlist
+" set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
 " make the highlighting of tabs less annoying
-highlight SpecialKey ctermbg=none
+" highlight SpecialKey ctermbg=none
 set showbreak=↪
 nmap <leader>l :set list!<cr>
 
