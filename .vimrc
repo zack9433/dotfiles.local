@@ -266,7 +266,7 @@ let g:perl_fold = 1
 " close NERDTree after a file is opened
 let g:NERDTreeQuitOnOpen=1
 let NERDTreeShowHidden=1
-" let g:NERDTreeWinSize=45
+let g:NERDTreeWinSize=45
 let g:NERDTreeAutoDeleteBuffer=1
 let NERDTreeIgnore = ['\.js.map$']
 " expand to the path of the file in the current buffer
