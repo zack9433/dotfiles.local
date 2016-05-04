@@ -81,11 +81,6 @@ endfunction
 
 nnoremap <silent> <leader>u :call HtmlUnEscape()<cr>
 
-function! NERDTreeHighlightFile(extension, fg, bg, guifg, guibg)
-exec 'autocmd FileType nerdtree highlight ' . a:extension .' ctermbg='. a:bg .' ctermfg='. a:fg .' guibg='. a:guibg .' guifg='. a:guifg
-exec 'autocmd FileType nerdtree syn match ' . a:extension .' #^\s\+.*'. a:extension .'$#'
-endfunction
-
 
 " Window navigation function
 " Make ctrl-h/j/k/l move between windows and auto-insert in terminals
@@ -271,31 +266,12 @@ let g:perl_fold = 1
 " close NERDTree after a file is opened
 let g:NERDTreeQuitOnOpen=1
 let NERDTreeShowHidden=1
-let g:NERDTreeWinSize=45
+" let g:NERDTreeWinSize=45
 let g:NERDTreeAutoDeleteBuffer=1
 let NERDTreeIgnore = ['\.js.map$']
 " expand to the path of the file in the current buffer
 nmap <silent> <leader>y :NERDTreeFind<cr>
 nmap <leader>nt :NERDTreeToggle<cr>
-call NERDTreeHighlightFile('jade', 'green', 'none', 'green', '#141e23')
-call NERDTreeHighlightFile('ini', 'yellow', 'none', 'yellow', '#141e23')
-call NERDTreeHighlightFile('md', 'blue', 'none', '#3366FF', '#141e23')
-call NERDTreeHighlightFile('yml', 'yellow', 'none', 'yellow', '#141e23')
-call NERDTreeHighlightFile('config', 'yellow', 'none', 'yellow', '#141e23')
-call NERDTreeHighlightFile('conf', 'yellow', 'none', 'yellow', '#141e23')
-call NERDTreeHighlightFile('json', 'yellow', 'none', 'yellow', '#141e23')
-call NERDTreeHighlightFile('html', 'yellow', 'none', 'yellow', '#141e23')
-call NERDTreeHighlightFile('styl', 'cyan', 'none', 'cyan', '#141e23')
-call NERDTreeHighlightFile('css', 'cyan', 'none', 'cyan', '#141e23')
-call NERDTreeHighlightFile('coffee', 'Red', 'none', 'red', '#141e23')
-call NERDTreeHighlightFile('js', 'Red', 'none', '#ffa500', '#141e23')
-call NERDTreeHighlightFile('ts', 'Blue', 'none', '#6699cc', '#141e23')
-call NERDTreeHighlightFile('php', 'Magenta', 'none', '#ff00ff', '#141e23')
-call NERDTreeHighlightFile('ds_store', 'Gray', 'none', '#686868', '#141e23')
-call NERDTreeHighlightFile('gitconfig', 'Gray', 'none', '#686868', '#141e23')
-call NERDTreeHighlightFile('gitignore', 'Gray', 'none', '#686868', '#141e23')
-call NERDTreeHighlightFile('bashrc', 'Gray', 'none', '#686868', '#141e23')
-call NERDTreeHighlightFile('bashprofile', 'Gray', 'none', '#686868', '#141e23')
 " }}}
 
 " github-completion: {{{
@@ -523,7 +499,6 @@ let base16colorspace=256  " Access colors present in 256 colorspace
 set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors"
 execute "set background=".$BACKGROUND
 execute "colorscheme ".$THEME
-highlight Comment cterm=italic
 highlight TermCursor ctermfg=red guifg=red
 " Highlight line number of where cursor currently is
 highlight CursorLineNr guifg=#050505

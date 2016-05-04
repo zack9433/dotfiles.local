@@ -4,7 +4,8 @@ set -g status-utf8 on
 set-window-option -g utf8 on
 
 # tmux display things in 256 colors
-set -g default-terminal "tmux-256color-italic"
+set -g default-terminal "screen-256color"
+set -g terminal-overrides "xterm:colors=256"
 
 set -g history-limit 20000
 
