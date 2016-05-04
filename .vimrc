@@ -123,8 +123,8 @@ Plug 'rstacruz/vim-fastunite'
 
 " Tmux
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'tmux-plugins/vim-tmux'
-Plug 'tmux-plugins/vim-tmux-focus-events'
+" Plug 'tmux-plugins/vim-tmux'
+" Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " Completion
 Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') } | Plug 'Konfekt/FastFold' " Dark powered asynchronous completion framework for neovim
@@ -266,7 +266,7 @@ let g:perl_fold = 1
 " close NERDTree after a file is opened
 let g:NERDTreeQuitOnOpen=1
 let NERDTreeShowHidden=1
-" let g:NERDTreeWinSize=45
+let g:NERDTreeWinSize=45
 let g:NERDTreeAutoDeleteBuffer=1
 let NERDTreeIgnore = ['\.js.map$']
 " expand to the path of the file in the current buffer
