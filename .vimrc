@@ -234,13 +234,37 @@ xmap <C-k>     <Plug>(neosnippet_expand_target)
 " Tell Neosnippet about the other snippets
 let g:neosnippet#snippets_directory='~/.vim/bundle/neosnippet-snippets/neosnippets, ~/Github/ionic-snippets, ~/.vim/bundle/angular-vim-snippets/snippets'
 
+" <CR> close popup and save indent or expand snippet
+function! CleverCr()
+    if pumvisible()
+        if neosnippet#expandable()
+            let exp = "\<Plug>(neosnippet_expand)"
+            return exp . neocomplete#smart_close_popup()
+        else
+            return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
+        endif
+    else
+        return "\<CR>"
+    endif
+endfunction
+" <CR> close popup and save indent or expand snippet
+imap <expr> <CR> CleverCr()
+" Tab completion (shift Tab for going backwards) for Neocomplete
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
+" <Down> and <Up> cycle like <Tab> and <S-Tab>
+inoremap <expr> <Down>  pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr> <Up>    pumvisible() ? "\<C-p>" : "\<Up>"
+" <ESC> takes you out of insert mode and also gets rid of suggestions window
+inoremap <expr> <Esc>   pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
+
 " SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
-\ "\<Plug>(neosnippet_expand_or_jump)"
-\: "\<TAB>"
+" imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+" \ "\<Plug>(neosnippet_expand_or_jump)"
+" \: pumvisible() ? "\<C-n>" : "\<TAB>"
+" smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+" \ "\<Plug>(neosnippet_expand_or_jump)"
+" \: "\<TAB>"
 
 " }}}
 
