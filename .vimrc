@@ -5,7 +5,6 @@ abbr funciton function
 abbr tempalte template
 
 let mapleader = ","
-let g:mapleader = ','
 
 filetype on
 set conceallevel=0
