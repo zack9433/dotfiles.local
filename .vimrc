@@ -147,7 +147,6 @@ Plug 'Chiel92/vim-autoformat'
 Plug 'mhinz/vim-sayonara' " Sane buffer/window deletion.
 Plug 'mattn/webapi-vim' " vim interface to Web API
 Plug 'terryma/vim-multiple-cursors'
-Plug 'rking/ag.vim'
 Plug 'maxbrunsfeld/vim-yankstack' " A lightweight implementation of emacs's kill-ring for vim
 Plug 'junegunn/vim-easy-align' " A Vim alignment plugin
 Plug 'AndrewRadev/switch.vim' " A simple Vim plugin to switch segments of text with predefined replacements
@@ -165,7 +164,7 @@ Plug 'benekastah/neomake' " neovim replacement for syntastic using neovim's job 
 Plug 'tpope/vim-fugitive' " amazing git wrapper for vim
 Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
 Plug 'editorconfig/editorconfig-vim' " .editorconfig support
-Plug 'tpope/vim-dispatch' | Plug 'radenling/vim-dispatch-neovim'" asynchronous build and test dispatcher
+Plug 'tpope/vim-dispatch' | Plug 'radenling/vim-dispatch-neovim' " asynchronous build and test dispatcher
 Plug 'AndrewRadev/splitjoin.vim' " single/multi line code handler: gS - split one line into multiple, gJ - combine multiple lines into one
 Plug 'vim-scripts/matchit.zip' " extended % matching
 Plug 'tpope/vim-sleuth' " detect indent style (tabs vs. spaces)
@@ -395,6 +394,8 @@ let g:unite_prompt='» '
 let g:unite_source_rec_async_command =['ag', '--follow', '--nocolor', '--nogroup','--hidden', '-g', '', '--ignore', '.git', '--ignore', '*.png', '--ignore', 'lib']
 call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
+nnoremap <silent> <leader>g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
+nnoremap <silent> <leader>r  :<C-u>UniteResume search-buffer<CR>
 nnoremap <silent> <c-p> :Unite -auto-resize -start-insert file_rec/async<CR>
 " }}}
 
@@ -432,7 +433,7 @@ let g:unite_source_menu_menus.git.command_candidates = [
   \[' git grep',  'exe "Ggrep " input("string: ")'],
   \[' git prompt', 'exe "Git! " input("command: ")'],
   \] " Append ' --' after log to get commit info commit buffers
-nnoremap <silent> <Leader>g :Unite -silent -buffer-name=git -start-insert menu:git<CR>
+nnoremap <silent> <Leader>git :Unite -silent -buffer-name=git -start-insert menu:git<CR>
 "}}}
 
 " Vim JSON: {{{
@@ -610,30 +611,30 @@ augroup configgroup
   autocmd BufEnter * if &buftype == 'terminal' | :startinsert | endif
 augroup END
 
-function! s:EscapeUnite()
-    augroup CloseUniteBuffer
-        autocmd!
-        autocmd InsertEnter <buffer>
-            \ let b:close = 0 |
-            \ let g:udt = &updatetime |
-            \ set updatetime=3
+" function! s:EscapeUnite()
+"     augroup CloseUniteBuffer
+"         autocmd!
+"         autocmd InsertEnter <buffer>
+"             \ let b:close = 0 |
+"             \ let g:udt = &updatetime |
+"             \ set updatetime=3
 
-        autocmd InsertLeave <buffer>
-            \ let b:close = 1
+"         autocmd InsertLeave <buffer>
+"             \ let b:close = 1
 
-        autocmd BufLeave,CursorHold <buffer>
-            \ let &updatetime = g:udt |
-            \ unlet g:udt
+"         autocmd BufLeave,CursorHold <buffer>
+"             \ let &updatetime = g:udt |
+"             \ unlet g:udt
 
-        autocmd CursorHold <buffer>
-            \ if b:close | close | endif
-    augroup END
-endfunction
+"         autocmd CursorHold <buffer>
+"             \ if b:close | close | endif
+"     augroup END
+" endfunction
 
-augroup EscapeUnite
-    autocmd!
-    autocmd FileType unite call s:EscapeUnite()
-augroup END
+" augroup EscapeUnite
+"     autocmd!
+"     autocmd FileType unite call s:EscapeUnite()
+" augroup END
 " }}}
 
 " Section Mappings {{{
