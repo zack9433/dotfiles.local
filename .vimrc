@@ -353,15 +353,11 @@ nmap <silent><leader>gb :Gblame<cr>
 "  }}}
 
 " Neomake -------------------------------------------------------------------{{{
-  function! neomake#makers#ft#javascript#eslint()
-      return {
-          \ 'args': ['-f', 'compact'],
-          \ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
-          \ '%W%f: line %l\, col %c\, Warning - %m'
-          \ }
-  endfunction
-  let g:neomake_javascript_enabled_makers = ['eslint']
-  autocmd! BufWritePost * Neomake
+autocmd! BufWritePost,BufEnter * Neomake
+
+" Look for local eslint and if not use globally installed one
+let g:eslint_path = system('PATH=$(npm bin):$PATH && which eslint')
+let g:neomake_javascript_enabled_makers = ['eslint']
 "}}}
 
 " Airline: {{{
