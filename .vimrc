@@ -131,7 +131,6 @@ Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') } | Plug 'Konfekt/Fast
 Plug 'Shougo/neoinclude.vim'
 Plug 'ujihisa/neco-look' " A neocomplcache plugin for English, using look command
 Plug 'Shougo/neco-vim', { 'for': 'vim' }
-Plug 'rhysd/github-complete.vim' " Vim input completion for GitHub
 
 " Snippets
 Plug 'Shougo/neosnippet.vim' " neo-snippet plugin contains neocomplcache snippets source
@@ -139,17 +138,11 @@ Plug 'Shougo/neosnippet-snippets' " The standard snippets repository for neosnip
 Plug 'honza/vim-snippets' " vim-snipmate default snippets
 
 " utilities
-Plug 'neilagabriel/vim-geeknote' " Vim plugin for Geeknote
 Plug 'easymotion/vim-easymotion'
 Plug 'mhinz/vim-signify'
 Plug 'Chiel92/vim-autoformat'
-Plug 'mhinz/vim-sayonara' " Sane buffer/window deletion.
-Plug 'mattn/webapi-vim' " vim interface to Web API
 Plug 'terryma/vim-multiple-cursors'
 Plug 'maxbrunsfeld/vim-yankstack' " A lightweight implementation of emacs's kill-ring for vim
-Plug 'junegunn/vim-easy-align' " A Vim alignment plugin
-Plug 'AndrewRadev/switch.vim' " A simple Vim plugin to switch segments of text with predefined replacements
-Plug 'terryma/vim-expand-region' " Vim plugin that allows you to visually select increasingly larger regions of text using the same key combination.
 Plug 'ConradIrwin/vim-bracketed-paste' " Handles bracketed-paste-mode in vim (aka. automatic `:set paste`)
 Plug 'scrooloose/nerdtree', { 'on': ['NERDTreeToggle', 'NERDTreeFind'] } | Plug 'Xuyuanp/nerdtree-git-plugin' | Plug 'ryanoasis/vim-devicons' " file drawer
 Plug 'jiangmiao/auto-pairs' " automatic closing of quotes, parenthesis, brackets, etc.
@@ -164,10 +157,8 @@ Plug 'tpope/vim-fugitive' " amazing git wrapper for vim
 Plug 'tpope/vim-repeat' " enables repeating other supported plugins with the . command
 Plug 'editorconfig/editorconfig-vim' " .editorconfig support
 Plug 'tpope/vim-dispatch' | Plug 'radenling/vim-dispatch-neovim' " asynchronous build and test dispatcher
-Plug 'AndrewRadev/splitjoin.vim' " single/multi line code handler: gS - split one line into multiple, gJ - combine multiple lines into one
 Plug 'vim-scripts/matchit.zip' " extended % matching
 Plug 'tpope/vim-sleuth' " detect indent style (tabs vs. spaces)
-Plug 'junegunn/goyo.vim', { 'on': 'Goyo' } " distraction-free writing
 
 " language-specific plugins
 Plug 'mattn/emmet-vim', { 'for': 'html' } " emmet support for vim - easily create markdup wth CSS-like syntax
@@ -210,11 +201,6 @@ nnoremap <silent> <leader>tl :call neoterm#clear()<cr>
 " kills the current job (send a <c-c>)
 nnoremap <silent> <leader>tk :call neoterm#kill()<cr>
 tnoremap <silent> <leader>tc <C-\><C-n>:Ttoggle<cr><esc>
-"  }}}
-
-" Geeknote: {{{
-let g:GeeknoteFormat="markdown"
-noremap <F8> :Geeknote<cr>
 "  }}}
 
 " Emmet: {{{
@@ -310,39 +296,8 @@ nmap <silent> <leader>y :NERDTreeFind<cr>
 nmap <leader>nt :NERDTreeToggle<cr>
 " }}}
 
-" github-completion: {{{
-if !exists('g:neocomplete#sources#omni#input_patterns')
-    let g:neocomplete#sources#omni#input_patterns = {}
-endif
-let g:neocomplete#sources#omni#input_patterns.markdown = ''
-let g:neocomplete#sources#omni#input_patterns.gitcommit = ''
-" Disable overwriting 'omnifunc'
-" let g:github_complete_enable_omni_completion = 0
-" autocmd FileType markdown,gitcommit
-"     \ imap <C-x><C-x> <Plug>(github-complete-manual-completion)
-" }}}
-
 " Deoplete.nvim: {{{
 let g:deoplete#enable_at_startup = 1
-" }}}
-
-" Switch: {{{
-nnoremap <leader>- :Switch<cr>
-let g:switch_custom_definitions =
-    \ [
-    \   ['true', 'false'],
-    \   ['and', 'or'],
-    \   ['is', 'isnt'],
-    \   ['w', 'h'],
-    \   ['width', 'height'],
-    \   {
-    \     '\<\(\l\)\(\l\+\(\u\l\+\)\+\)\>': '\=toupper(submatch(1)) . submatch(2)',
-    \     '\<\(\u\l\+\)\(\u\l\+\)\+\>': "\\=tolower(substitute(submatch(0), '\\(\\l\\)\\(\\u\\)', '\\1_\\2', 'g'))",
-    \     '\<\(\l\+\)\(_\l\+\)\+\>': '\U\0',
-    \     '\<\(\u\+\)\(_\u\+\)\+\>': "\\=tolower(substitute(submatch(0), '_', '-', 'g'))",
-    \     '\<\(\l\+\)\(-\l\+\)\+\>': "\\=substitute(submatch(0), '-\\(\\l\\)', '\\u\\1', 'g')",
-    \   }
-    \ ]
 " }}}
 
 " Fugitive.vim: {{{
@@ -356,7 +311,6 @@ nmap <silent><leader>gb :Gblame<cr>
 autocmd! BufWritePost,BufEnter * Neomake
 
 " Look for local eslint and if not use globally installed one
-let g:eslint_path = system('PATH=$(npm bin):$PATH && which eslint')
 let g:neomake_javascript_enabled_makers = ['eslint']
 "}}}
 
@@ -466,11 +420,6 @@ nmap <leader>p <Plug>yankstack_substitute_older_paste
 nmap <leader>P <Plug>yankstack_substitute_newer_paste
 " }}}
 
-" vim-easy-align: {{{
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
-" }}}
-
 " Navigate between vim buffers and tmux panels ------------------------------{{{
 let g:tmux_navigator_no_mappings = 1
 nnoremap <silent> <C-j> :TmuxNavigateDown<cr>
@@ -560,15 +509,12 @@ augroup configgroup
   autocmd FileType jade setlocal ts=2 sts=2 sw=2 noexpandtab
   autocmd FileType markdown,textile setlocal textwidth=0 wrapmargin=0 wrap spell
   autocmd FileType .xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
-  autocmd FileType crontab setlocal nobackup nowritebackup
   autocmd FileType javascript,typescript,css,scss,json setlocal foldmethod=marker
   autocmd FileType javascript,typescript,css,scss,json setlocal foldmarker={,}
   autocmd FileType coffee setl foldmethod=indent
 
   " automatically resize panes on resize
   autocmd VimResized * exe 'normal! \<c-w>='
-  " save all files on focus lost, ignoring warnings about untitled buffers
-  autocmd FocusLost * silent! wa
 
   autocmd BufNewFile,BufRead *.ejs set filetype=html
   autocmd BufNewFile,BufRead *.ino set filetype=c
@@ -594,7 +540,7 @@ augroup configgroup
               \ if line("'\"") > 0 && line ("'\"") <= line("$") |
               \   exe "normal! g'\"" |
               \ endif
-              " center buffer around cursor when opening files
+  " center buffer around cursor when opening files
   autocmd BufRead * normal zz
 
   " TypeScript hint
@@ -606,30 +552,6 @@ augroup configgroup
   autocmd BufEnter * if &buftype == 'terminal' | :startinsert | endif
 augroup END
 
-" function! s:EscapeUnite()
-"     augroup CloseUniteBuffer
-"         autocmd!
-"         autocmd InsertEnter <buffer>
-"             \ let b:close = 0 |
-"             \ let g:udt = &updatetime |
-"             \ set updatetime=3
-
-"         autocmd InsertLeave <buffer>
-"             \ let b:close = 1
-
-"         autocmd BufLeave,CursorHold <buffer>
-"             \ let &updatetime = g:udt |
-"             \ unlet g:udt
-
-"         autocmd CursorHold <buffer>
-"             \ if b:close | close | endif
-"     augroup END
-" endfunction
-
-" augroup EscapeUnite
-"     autocmd!
-"     autocmd FileType unite call s:EscapeUnite()
-" augroup END
 " }}}
 
 " Section Mappings {{{
@@ -674,7 +596,7 @@ map <S-L> gt
 nmap <leader>. <c-^>
 
 " Terminal settings
-tnoremap <ESC> <C-\><C-n>
+tnoremap <leader><ESC> <C-\><C-n>
 
 map <leader>wc :wincmd q<cr>
 
@@ -714,11 +636,6 @@ nnoremap Y "*Y<CR>
 " Space to toggle folds.
 nnoremap <Space> za
 vnoremap <Space> za
-
-" search for word under the cursor
-nnoremap <leader>/ "fyiw :/<c-r>f<cr>
-
-nmap <leader>w :setf textile<cr> :Goyo<cr>
 
 " Resize split window
 nmap + <C-W>+
