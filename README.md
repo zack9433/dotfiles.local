@@ -7,11 +7,16 @@
 - `cd ~/dotfiles.local && ./install.sh`
 
 # Terminal Setting
+Use iTerm3
+
 ## Italic Font
 [https://alexpearce.me/2014/05/italics-in-iterm2-vim-tmux/](https://alexpearce.me/2014/05/italics-in-iterm2-vim-tmux/)
 
 ## Base16 Theme
-Import iterm2 color presets, default theme is `base16-atelierlakeside.dark.256.itermcolors` and just click this file which is under `base16/iterm2/` folder.
+Import iterm3 color presets, default theme is [oceanic-next](https://github.com/mhartington/oceanic-next-iterm).
 
 ## Font
-Set iterm2 font size to 15pt and font to `Droid Sans Mono for Powerline Nerd Font` which is download form this [repo](https://github.com/ryanoasis/nerd-fonts).
+Set iterm3 font size to 15pt and font to `Office Code Pro Light` which is download form this [repo](https://github.com/nathco/Office-Code-Pro).
+
+## ASCII Font
+Set iterm3 font size to 13pt and font to `Droid Sans Mono for Powerline Nerd Font` which is download form this [repo](https://github.com/ryanoasis/nerd-fonts).
