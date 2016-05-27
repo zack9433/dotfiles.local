@@ -19,4 +19,4 @@ Import iterm3 color presets, default theme is [oceanic-next](https://github.com/
 Set iterm3 font size to 15pt and font to `Office Code Pro Light` which is download form this [repo](https://github.com/nathco/Office-Code-Pro).
 
 ## ASCII Font
-Set iterm3 font size to 13pt and font to `Droid Sans Mono for Powerline Nerd Font` which is download form this [repo](https://github.com/ryanoasis/nerd-fonts).
+Set iterm3 font size to 13pt and font to `Sauce Code Pro Light Nerd Font Complete` which is download form this [repo](https://github.com/ryanoasis/nerd-fonts).
