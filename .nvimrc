@@ -259,11 +259,6 @@ nnoremap ; :
 
 inoremap <c-f> <c-x><c-f>
 
-" Copy to osx clipboard
-"vnoremap <C-c> "*y<CR>
-vnoremap y "*y<CR>
-nnoremap Y "*Y<CR>
-
 " Space to toggle folds.
 nnoremap <Space> za
 vnoremap <Space> za
