@@ -171,6 +171,8 @@ set linebreak " set soft wrapping
 set autoindent " automatically set indent of new line
 set smartindent
 set showbreak=↪
+set undodir=~/.config/nvim/undodir
+set undofile
 
 if !has('nvim')
   set encoding=utf-8
@@ -205,7 +207,7 @@ nmap ;s :set invspell spelllang=en<cr>
 " set listchars=tab:▸\ ,eol:¬,trail:⋅,extends:❯,precedes:❮
 " make the highlighting of tabs less annoying
 " highlight SpecialKey ctermbg=none
-nmap <leader>l :set list!<cr>
+" nmap <leader>l :set list!<cr>
 
 " tab to indent
 nmap <tab> V>
@@ -338,9 +340,6 @@ augroup configgroup
 
   " TypeScript hint
   autocmd FileType typescript nmap <buffer> <Leader>T : <C-u>echo tsuquyomi#hint()<CR>
-
-  autocmd InsertEnter * if !exists('w:last_fdm') | let w:last_fdm=&foldmethod | setlocal foldmethod=manual | endif
-  autocmd InsertLeave,WinLeave * if exists('w:last_fdm') | let &l:foldmethod=w:last_fdm | unlet w:last_fdm | endif
 augroup END
 " }}}
 
@@ -457,11 +456,41 @@ let g:perl_fold = 1
 let g:deoplete#enable_at_startup = 1
 " }}}
 
-" Neomake -------------------------------------------------------------------{{{
-autocmd! BufWritePost,BufEnter * Neomake
-
-" Look for local eslint and if not use globally installed one
+" Neomake: {{{
 let g:neomake_javascript_enabled_makers = ['eslint']
+let g:neomake_verbose=1
+let g:neomake_open_list=2
+let g:neomake_list_height=10
+" Look for local eslint and if not use globally installed one
+let g:eslint_path = system('PATH=$(npm bin):$PATH && which eslint')
+let g:neomake_javascript_eslint_exe=substitute(g:eslint_path, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
+let g:neomake_warning_sign = {
+      \ 'text': '✹',
+      \ 'texthl': 'WarningMsg',
+      \ }
+let g:neomake_error_sign = {
+      \ 'text': '✖',
+      \ 'texthl': 'ErrorMsg',
+      \ }
+
+au! BufEnter *.js call EnterNeomake()
+au! BufWritePost *.js call SaveNeomake()
+function! EnterNeomake()
+  " don't show the loc-list when entering a buffer
+  let g:neomake_open_list=0
+  exe "Neomake eslint"
+endfunction
+
+function! SaveNeomake()
+  " show the loc-list after saving
+  let g:neomake_open_list=2
+  exe "Neomake eslint"
+endfunction
+nmap <Leader>lo :lopen<CR>      " open location window
+nmap <Leader>lc :lclose<CR>     " close location window
+nmap <Leader>ll :ll<CR>         " go to current error/warning
+nmap <Leader>ln :lnext<CR>      " next error/warning
+nmap <Leader>lp :lprev<CR>      " previous error/warning
 "}}}
 
 " Airline: {{{
