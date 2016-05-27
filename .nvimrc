@@ -6,9 +6,6 @@ call plug#begin('~/.config/nvim/plugged')
 Plug 'chriskempson/base16-vim'
 Plug 'mhartington/oceanic-next'
 
-" Icon
-Plug 'ryanoasis/vim-devicons'
-
 " Unite
 Plug 'Shougo/vimproc.vim', { 'do': 'make' } " interactive command execution in vim
 Plug 'Shougo/unite.vim'
@@ -17,7 +14,7 @@ Plug 'ujihisa/unite-colorscheme'
 Plug 'h1mesuke/unite-outline'
 Plug 'Shougo/neomru.vim'
 Plug 'rstacruz/vim-fastunite'
-Plug 'Shougo/vimfiler.vim' |
+Plug 'Shougo/vimfiler.vim' | Plug 'ryanoasis/vim-devicons'
 
 " Tmux
 Plug 'christoomey/vim-tmux-navigator'
@@ -358,15 +355,15 @@ let g:indentLine_enabled = 1
 " VimFiler: {{{
 let g:vimfiler_as_default_explorer = 1
 let g:vimfiler_safe_mode_by_default = 0
-let g:vimfiler_tree_opened_icon = "▼"
-let g:vimfiler_tree_closed_icon = "▷"
+" let g:vimfiler_tree_opened_icon = "▼"
+" let g:vimfiler_tree_closed_icon = "▷"
 let g:vimfiler_enable_auto_cd = 1
 let g:vimfiler_ignore_pattern= ['.DS_Store']
 let g:vimfiler_ignore_filters = ['']
 " nmap <leader>nt :VimFiler -toggle<cr>
 " Open filer in project folder.
-nnoremap <leader>nt :VimFiler -simple -toggle -project -quit<cr>
-nnoremap [unite]e :VimFilerBufferDir -simple -toggle -quit<cr>
+nnoremap <leader>nt :VimFiler -toggle -project -quit<cr>
+nnoremap [unite]e :VimFilerBufferDir -toggle -quit<cr>
 " }}}
 
 " Emmet: {{{
