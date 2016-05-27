@@ -146,7 +146,8 @@ set showcmd " show incomplete commands
 set noshowmode " don't show which mode disabled for airline
 set confirm
 set complete=.,w,b,u,t,k " http://usevim.com/2015/06/03/spelling-tips/
-set completeopt+=noselect,menu,preview
+" set completeopt+=noselect,menu,preview
+set completeopt-=preview
 set title " set terminal title
 " Searching
 set ignorecase " case insensitive searching
