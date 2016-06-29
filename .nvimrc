@@ -5,6 +5,7 @@ call plug#begin('~/.config/nvim/plugged')
 " colorschemes
 Plug 'chriskempson/base16-vim'
 Plug 'mhartington/oceanic-next'
+Plug 'frankier/neovim-colors-solarized-truecolor-only'
 
 " Unite
 Plug 'Shougo/vimproc.vim', { 'do': 'make' } " interactive command execution in vim
@@ -18,6 +19,7 @@ Plug 'Shougo/vimfiler.vim' | Plug 'ryanoasis/vim-devicons'
 
 " Tmux
 Plug 'christoomey/vim-tmux-navigator'
+Plug 'tmux-plugins/vim-tmux-focus-events'
 
 " Completion
 function! DoRemote(arg)
@@ -63,7 +65,6 @@ Plug 'mattn/emmet-vim', { 'for': 'html' } " emmet support for vim - easily creat
 Plug 'valloric/MatchTagAlways', { 'for': 'html' } " match tags in html, similar to paren support
 Plug 'othree/html5.vim', { 'for': 'html' } " html5 support
 Plug 'pangloss/vim-javascript', { 'for': 'javascript' } " JavaScript support
-Plug 'moll/vim-node', { 'for': 'javascript' } " node support
 Plug 'othree/yajs.vim', { 'for': 'javascript' } " JavaScript syntax plugin
 Plug 'othree/jsdoc-syntax.vim', {'for':['javascript', 'typescript']}
 Plug 'othree/es.next.syntax.vim', {'for': 'javascript'}
@@ -83,6 +84,7 @@ Plug 'itspriddle/vim-marked', { 'for': 'markdown', 'on': 'MarkedOpen' } " Open m
 Plug 'tpope/vim-markdown', { 'for': 'markdown' } " markdown support
 Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
 Plug 'ekalinin/Dockerfile.vim'
+Plug 'tmux-plugins/vim-tmux'
 
 " All of your Plugins must be added before the following line
 call plug#end()
@@ -94,9 +96,11 @@ abbr tempalte template
 " }}}
 
 " Basic Settings: {{{
+set t_ut=
 filetype plugin indent on    " required
 syntax enable
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 let mapleader = ","
 set background=dark
 " execute "set background=".$BACKGROUND
@@ -294,8 +298,8 @@ augroup configgroup
   autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
   autocmd FileType ruby setlocal ts=2 sts=2 sw=2 expandtab
-  autocmd FileType html setlocal ts=4 sts=4 sw=4 noexpandtab indentkeys-=*<return>
-  autocmd FileType html setlocal ts=4 sts=4 sw=4 noexpandtab
+  autocmd FileType html setlocal ts=2 sts=2 sw=2 noexpandtab indentkeys-=*<return>
+  autocmd FileType html setlocal ts=2 sts=2 sw=2 noexpandtab
   autocmd FileType jade setlocal ts=2 sts=2 sw=2 noexpandtab
   autocmd FileType markdown,textile setlocal textwidth=0 wrapmargin=0 wrap spell
   autocmd FileType .xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
@@ -358,7 +362,7 @@ let g:vimfiler_ignore_pattern= ['.DS_Store']
 let g:vimfiler_ignore_filters = ['']
 " nmap <leader>nt :VimFiler -toggle<cr>
 " Open filer in project folder.
-nnoremap <leader>nt :VimFiler -toggle -project -quit<cr>
+nnoremap <leader>nt :VimFiler -toggle -quit<cr>
 nnoremap [unite]e :VimFilerBufferDir -toggle -quit<cr>
 " }}}
 
@@ -564,10 +568,6 @@ nnoremap <silent> <Leader>git :Unite -silent -buffer-name=git -start-insert menu
 let g:vim_json_syntax_conceal = 0
 "  }}}
 
-" vim-node: {{{
-autocmd User Node if &filetype == "javascript" | setlocal expandtab | endif
-"  }}}
-
 " Easymotion: {{{
 let g:EasyMotion_do_mapping = 0 " Disable default mappings
 
@@ -601,6 +601,11 @@ nnoremap <silent> <C-k> :TmuxNavigateUp<cr>
 nnoremap <silent> <C-l> :TmuxNavigateRight<cr>
 nnoremap <silent> <C-h> :TmuxNavigateLeft<CR>
 nnoremap <silent> <C-;> :TmuxNavigatePrevious<cr>
+tmap <C-j> <C-\><C-n>:TmuxNavigateDown<cr>
+tmap <C-k> <C-\><C-n>:TmuxNavigateUp<cr>
+tmap <C-l> <C-\><C-n>:TmuxNavigateRight<cr>
+tmap <C-h> <C-\><C-n>:TmuxNavigateLeft<CR>
+tmap <C-;> <C-\><C-n>:TmuxNavigatePrevious<cr>
 "}}}
 
 " }}}
