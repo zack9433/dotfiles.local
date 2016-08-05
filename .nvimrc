@@ -354,6 +354,27 @@ augroup END
 
 " Plugins setting {{{
 
+" NERDTree: {{{
+
+let g:NERDTreeQuitOnOpen=1
+let NERDTreeShowHidden=1
+let NERDTreeIgnore = ['\.js.map$']
+" expand to the path of the file in the current buffer
+nmap <silent> <leader>y :NERDTreeFind<cr>
+nmap <leader>nt :NERDTreeToggle<cr>
+augroup nerd_loader
+  autocmd!
+  autocmd VimEnter * silent! autocmd! FileExplorer
+  autocmd BufEnter,BufNew *
+        \  if isdirectory(expand('<amatch>'))
+        \|   call plug#load('nerdtree')
+        \|   execute 'autocmd! nerd_loader'
+        \| endif
+augroup END
+
+" }}}
+
+
 " deoplete-ternjs: {{{
 " Use deoplete.
 let g:tern_request_timeout = 1
@@ -374,7 +395,7 @@ let g:vimfiler_ignore_pattern= ['.DS_Store']
 let g:vimfiler_ignore_filters = ['']
 " nmap <leader>nt :VimFiler -toggle<cr>
 " Open filer in project folder.
-nnoremap <leader>nt :VimFiler -toggle -quit<cr>
+" nnoremap <leader>nt :VimFiler -toggle -quit<cr>
 nnoremap [unite]e :VimFilerBufferDir -toggle -quit<cr>
 " }}}
 
