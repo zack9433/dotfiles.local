@@ -9,17 +9,32 @@ Plug 'frankier/neovim-colors-solarized-truecolor-only'
 
 " Unite
 Plug 'Shougo/vimproc.vim', { 'do': 'make' } " interactive command execution in vim
-Plug 'Shougo/unite.vim'
-Plug 'tacroe/unite-mark'
-Plug 'ujihisa/unite-colorscheme'
-Plug 'h1mesuke/unite-outline'
-Plug 'Shougo/neomru.vim'
-Plug 'rstacruz/vim-fastunite'
-Plug 'Shougo/vimfiler.vim' | Plug 'ryanoasis/vim-devicons'
+" Plug 'Shougo/unite.vim'
+" Plug 'tacroe/unite-mark'
+" Plug 'ujihisa/unite-colorscheme'
+" Plug 'h1mesuke/unite-outline'
+" Plug 'Shougo/neomru.vim'
+" Plug 'rstacruz/vim-fastunite'
+" Plug 'Shougo/vimfiler.vim' | Plug 'ryanoasis/vim-devicons'
+
+" FZF
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+
+" File explore
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }  | Plug 'ryanoasis/vim-devicons'
 
 " Tmux
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'tmux-plugins/vim-tmux-focus-events'
+
+" Git
+Plug 'tpope/vim-fugitive' | Plug 'junegunn/gv.vim'
+
+" junegunn plugins
+Plug 'junegunn/vim-pseudocl'
+Plug 'junegunn/vim-oblique'
+Plug 'junegunn/vim-emoji'
 
 " Completion
 function! DoRemote(arg)
@@ -27,9 +42,10 @@ function! DoRemote(arg)
 endfunction
 Plug 'Shougo/deoplete.nvim', { 'do': function('DoRemote') } | Plug 'Konfekt/FastFold' " Dark powered asynchronous completion framework for neovim
 Plug 'Shougo/neoinclude.vim'
-Plug 'ujihisa/neco-look' " A neocomplcache plugin for English, using look command
+" Plug 'ujihisa/neco-look', { 'for': ['markdown', 'text', 'html'] } " A neocomplcache plugin for English, using look command
 Plug 'Shougo/neco-vim', { 'for': 'vim' }
 Plug 'carlitux/deoplete-ternjs'
+Plug 'zchee/deoplete-jedi'
 
 " Snippets
 Plug 'Shougo/neosnippet.vim' " neo-snippet plugin contains neocomplcache snippets source
@@ -42,7 +58,9 @@ Plug 'vim-airline/vim-airline' " fancy statusline
 Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
 
 " Utilities
-Plug 'Yggdroot/indentLine'
+Plug 'mileszs/ack.vim'
+Plug 'powerman/vim-plugin-AnsiEsc' " ansi escape sequences concealed, but highlighted as specified (conceal)
+Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesEnable' }
 Plug 'Chiel92/vim-autoformat'
 Plug 'tpope/vim-sleuth'
 Plug 'tpope/vim-sensible'
@@ -51,7 +69,7 @@ Plug 'mhinz/vim-signify'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'maxbrunsfeld/vim-yankstack' " A lightweight implementation of emacs's kill-ring for vim
 Plug 'ConradIrwin/vim-bracketed-paste' " Handles bracketed-paste-mode in vim (aka. automatic `:set paste`)
-Plug 'jiangmiao/auto-pairs' " automatic closing of quotes, parenthesis, brackets, etc.
+Plug 'itmammoth/doorboy.vim' " Vim plugin for auto closing brackets ( => (|) and quotations \" => \"|\" , and more
 Plug 'tpope/vim-commentary' " comment stuff out
 Plug 'tpope/vim-surround' " mappings to easily delete, change and add such surroundings in pairs, such as quotes, parens, etc.
 Plug 'benekastah/neomake' " neovim replacement for syntastic using neovim's job control functonality
@@ -64,7 +82,7 @@ Plug 'vim-scripts/matchit.zip' " extended % matching
 Plug 'mattn/emmet-vim', { 'for': 'html' } " emmet support for vim - easily create markdup wth CSS-like syntax
 Plug 'valloric/MatchTagAlways', { 'for': 'html' } " match tags in html, similar to paren support
 Plug 'othree/html5.vim', { 'for': 'html' } " html5 support
-Plug 'pangloss/vim-javascript', { 'for': 'javascript' } " JavaScript support
+Plug 'othree/javascript-libraries-syntax.vim' " JavaScript support
 Plug 'othree/yajs.vim', { 'for': 'javascript' } " JavaScript syntax plugin
 Plug 'othree/jsdoc-syntax.vim', {'for':['javascript', 'typescript']}
 Plug 'othree/es.next.syntax.vim', {'for': 'javascript'}
@@ -74,15 +92,13 @@ Plug 'mxw/vim-jsx', { 'for': 'jsx' } " JSX support
 Plug 'elzr/vim-json', { 'for': 'json' } " JSON support
 Plug 'HerringtonDarkholme/yats.vim', {'for': 'typescript'} " TypeScript syntax plugin
 Plug 'Quramy/tsuquyomi', {'for': 'typescript'}
-Plug 'digitaltoad/vim-jade', { 'for': 'jade' } " jade support
 Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' } " sass scss syntax support
 Plug 'wavded/vim-stylus', { 'for': ['stylus', 'markdown'] } " markdown support
 Plug 'groenewege/vim-less', { 'for': 'less' } " less support
 Plug 'ap/vim-css-color', { 'for': ['css','stylus','scss'] } " set the background of hex color values to the color
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' } " CSS3 syntax support
-Plug 'itspriddle/vim-marked', { 'for': 'markdown', 'on': 'MarkedOpen' } " Open markdown files in Marked.app - mapped to <leader>m
 Plug 'tpope/vim-markdown', { 'for': 'markdown' } " markdown support
-Plug 'suan/vim-instant-markdown', { 'for': 'markdown' }
+Plug 'tmhedberg/SimpylFold', { 'for': 'python' } " markdown support
 Plug 'ekalinin/Dockerfile.vim'
 Plug 'tmux-plugins/vim-tmux'
 
@@ -96,7 +112,6 @@ abbr tempalte template
 " }}}
 
 " Basic Settings: {{{
-set t_ut=
 filetype plugin indent on    " required
 syntax enable
 let $NVIM_TUI_ENABLE_TRUE_COLOR=1
@@ -159,8 +174,9 @@ set smartcase " case-sensitive if expresson contains a capital letter
 set hlsearch
 set incsearch " set incremental search, like modern browsers
 set magic " Set magic on, for regex
-set ttimeout " Fast timeout
-set ttimeoutlen=20
+" Remove the one-second escape key delay
+" http://stackoverflow.com/questions/12312178/tmux-and-vim-escape-key-being-seen-as-and-having-long-delay
+set timeout timeoutlen=1000 ttimeoutlen=100
 set showmatch " show matching braces
 " No annoying sound on errors
 set belloff=all
@@ -191,9 +207,6 @@ highlight TermCursor ctermfg=red guifg=red
 " }}}
 
 " Section Mappings {{{
-
-" markdown to html
-nmap <leader>md :%!markdown --html4tags <cr>
 
 " wipout buffer
 nmap <silent> <leader>b :bw<cr>
@@ -298,10 +311,9 @@ augroup configgroup
   autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
   autocmd FileType ruby setlocal ts=2 sts=2 sw=2 expandtab
-  autocmd FileType html setlocal ts=2 sts=2 sw=2 noexpandtab indentkeys-=*<return>
-  autocmd FileType html setlocal ts=2 sts=2 sw=2 noexpandtab
-  autocmd FileType jade setlocal ts=2 sts=2 sw=2 noexpandtab
-  autocmd FileType markdown,textile setlocal textwidth=0 wrapmargin=0 wrap spell
+  autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType jade setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType markdown,textile setlocal textwidth=0 wrapmargin=0 completefunc=emoji#complete wrap spell
   autocmd FileType .xml exe ":silent %!xmllint --format --recover - 2>/dev/null"
   autocmd FileType javascript,typescript,css,scss,json setlocal foldmethod=marker
   autocmd FileType javascript,typescript,css,scss,json setlocal foldmarker={,}
@@ -415,6 +427,136 @@ inoremap <expr> <Esc>   pumvisible() ? "\<C-y>\<Esc>" : "\<Esc>"
 
 " }}}
 
+" vim-emoji: {{{
+
+" %< Where to truncate
+" %n buffer number
+" %F Full path
+" %m Modified flag: [+], [-]
+" %r Readonly flag: [RO]
+" %y Type:          [vim]
+" fugitive#statusline()
+" %= Separator
+" %-14.(...)
+" %l Line
+" %c Column
+" %V Virtual column
+" %P Percentage
+" %#HighlightGroup#
+set statusline=%<[%n]\ %F\ %m%r%y\ %{exists('g:loaded_fugitive')?fugitive#statusline():''}\ %=%-14.(%l,%c%V%)\ %P
+silent! if emoji#available()
+  let s:ft_emoji = map({
+    \ 'c':          'baby_chick',
+    \ 'clojure':    'lollipop',
+    \ 'coffee':     'coffee',
+    \ 'cpp':        'chicken',
+    \ 'css':        'art',
+    \ 'eruby':      'ring',
+    \ 'gitcommit':  'soon',
+    \ 'haml':       'hammer',
+    \ 'help':       'angel',
+    \ 'html':       'herb',
+    \ 'java':       'older_man',
+    \ 'javascript': 'monkey',
+    \ 'make':       'seedling',
+    \ 'markdown':   'book',
+    \ 'perl':       'camel',
+    \ 'python':     'snake',
+    \ 'ruby':       'gem',
+    \ 'scala':      'barber',
+    \ 'sh':         'shell',
+    \ 'slim':       'dancer',
+    \ 'text':       'books',
+    \ 'vim':        'poop',
+    \ 'vim-plug':   'electric_plug',
+    \ 'yaml':       'yum',
+    \ 'yaml.jinja': 'yum'
+  \ }, 'emoji#for(v:val)')
+
+  function! S_filetype()
+    if empty(&filetype)
+      return emoji#for('grey_question')
+    else
+      return get(s:ft_emoji, &filetype, '['.&filetype.']')
+    endif
+  endfunction
+
+  function! S_modified()
+    if &modified
+      return emoji#for('kiss').' '
+    elseif !&modifiable
+      return emoji#for('construction').' '
+    else
+      return ''
+    endif
+  endfunction
+
+  function! S_fugitive()
+    if !exists('g:loaded_fugitive')
+      return ''
+    endif
+    let head = fugitive#head()
+    if empty(head)
+      return ''
+    else
+      return head == 'master' ? emoji#for('crown') : emoji#for('dango').'='.head
+    endif
+  endfunction
+
+  let s:braille = split('"⠉⠒⠤⣀', '\zs')
+  function! Braille()
+    let len = len(s:braille)
+    let [cur, max] = [line('.'), line('$')]
+    let pos  = min([len * (cur - 1) / max([1, max - 1]), len - 1])
+    return s:braille[pos]
+  endfunction
+
+  hi def link User1 TablineFill
+  let s:cherry = emoji#for('cherry_blossom')
+  function! MyStatusLine()
+    let mod = '%{S_modified()}'
+    let ro  = "%{&readonly ? emoji#for('lock') . ' ' : ''}"
+    let ft  = '%{S_filetype()}'
+    let fug = ' %{S_fugitive()}'
+    let sep = ' %= '
+    let pos = ' %l,%c%V '
+    let pct = ' %P '
+
+    return s:cherry.' [%n] %F %<'.mod.ro.ft.fug.sep.pos.'%{Braille()}%*'.pct.s:cherry
+  endfunction
+
+  " Note that the "%!" expression is evaluated in the context of the
+  " current window and buffer, while %{} items are evaluated in the
+  " context of the window that the statusline belongs to.
+  set statusline=%!MyStatusLine()
+endif
+
+" ----------------------------------------------------------------------------
+" vim-emoji :dog: :cat: :rabbit:!
+" ----------------------------------------------------------------------------
+function! s:replace_emojis() range
+  for lnum in range(a:firstline, a:lastline)
+    let line = getline(lnum)
+    let subs = substitute(line,
+          \ ':\([^:]\+\):', '\=emoji#for(submatch(1), submatch(0))', 'g')
+    if line != subs
+      call setline(lnum, subs)
+    endif
+  endfor
+endfunction
+command! -range EmojiReplace <line1>,<line2>call s:replace_emojis()
+
+" }}}
+
+
+" vim-fugitive: {{{
+
+nmap     <Leader>g :Gstatus<CR>gg<c-n>
+nnoremap <Leader>d :Gdiff<CR>
+au FileType gitcommit nnoremap <buffer> <silent> cA :<C-U>Gcommit --amend --date="$(date)"<CR>
+
+" }}}
+
 " Typescript & Javscript omni complete: {{{
 let g:tsuquyomi_disable_quickfix = 1
 let g:vimjs#casesensistive = 1
@@ -458,9 +600,6 @@ let g:neomake_javascript_enabled_makers = ['eslint']
 let g:neomake_verbose=1
 let g:neomake_open_list=2
 let g:neomake_list_height=10
-" Look for local eslint and if not use globally installed one
-let g:eslint_path = system('PATH=$(npm bin):$PATH && which eslint')
-let g:neomake_javascript_eslint_exe=substitute(g:eslint_path, '^\n*\s*\(.\{-}\)\n*\s*$', '\1', '')
 let g:neomake_warning_sign = {
       \ 'text': '✹',
       \ 'texthl': 'WarningMsg',
@@ -470,6 +609,7 @@ let g:neomake_error_sign = {
       \ 'texthl': 'ErrorMsg',
       \ }
 
+autocmd FileType javascript :call NeomakeESlintChecker()
 au! BufEnter *.js call EnterNeomake()
 au! BufWritePost *.js call SaveNeomake()
 function! EnterNeomake()
@@ -483,6 +623,27 @@ function! SaveNeomake()
   let g:neomake_open_list=2
   exe "Neomake eslint"
 endfunction
+
+function! NeomakeESlintChecker()
+  let l:npm_bin = ''
+  let l:eslint = 'eslint'
+
+  if executable('npm-which')
+    let l:eslint = split(system('npm-which eslint'))[0]
+    return 0
+  endif
+
+  if executable('npm')
+    let l:npm_bin = split(system('npm bin'), '\n')[0]
+  endif
+
+  if strlen(l:npm_bin) && executable(l:npm_bin . '/eslint')
+    let l:eslint = l:npm_bin . '/eslint'
+  endif
+
+  let b:neomake_javascript_eslint_exe = l:eslint
+endfunction
+
 nmap <Leader>lo :lopen<CR>      " open location window
 nmap <Leader>lc :lclose<CR>     " close location window
 nmap <Leader>ll :ll<CR>         " go to current error/warning
@@ -492,6 +653,7 @@ nmap <Leader>lp :lprev<CR>      " previous error/warning
 
 " Airline: {{{
 let g:airline_powerline_fonts=1
+let g:airline_skip_empty_sections = 1
 " let g:airline_theme='base16'
 let g:airline_theme='oceanicnext'
 let g:airline#extensions#tabline#enabled = 1
@@ -513,55 +675,80 @@ nmap <leader>m :MarkedOpen!<cr>
 nmap <leader>mq :MarkedQuit<cr>
 "  }}}
 
-" Unite: {{{
-let g:unite_data_directory='~/.nvim/.cache/unite'
-let g:unite_source_history_yank_enable=1
-let g:unite_prompt='» '
-let g:unite_source_rec_async_command =['ag', '--follow', '--nocolor', '--nogroup','--hidden', '-g', '', '--ignore', '.git', '--ignore', '*.png', '--ignore', 'lib']
-" call unite#filters#matcher_default#use(['matcher_fuzzy'])
-" call unite#filters#sorter_default#use(['sorter_rank'])
-call unite#custom#source('file_rec,file_rec/async', 'matchers', ['converter_relative_word', 'matcher_fuzzy'])
-nnoremap <silent> <leader>g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
-nnoremap <silent> <leader>r  :<C-u>UniteResume search-buffer<CR>
-nnoremap <silent> <c-p> :Unite -auto-resize -start-insert file_rec/async<CR>
-" }}}
+if executable('fzf')
+  " FZF {{{
+  if has('nvim')
+    let $FZF_DEFAULT_OPTS .= ' --inline-info'
+  endif
 
-" Git from unite...ERMERGERD ------------------------------------------------{{{
-let g:unite_source_menu_menus = {} " Useful when building interfaces at appropriate places
-let g:unite_source_menu_menus.git = {
-  \ 'description' : 'Fugitive interface',
-  \}
-let g:unite_source_menu_menus.git.command_candidates = [
-  \[' git status', 'Gstatus'],
-  \[' git diff', 'Gvdiff'],
-  \[' git commit', 'Gcommit'],
-  \[' git stage/add', 'Gwrite'],
-  \[' git checkout', 'Gread'],
-  \[' git rm', 'Gremove'],
-  \[' git cd', 'Gcd'],
-  \[' git push', 'exe "Git! push " input("remote/branch: ")'],
-  \[' git pull', 'exe "Git! pull " input("remote/branch: ")'],
-  \[' git pull rebase', 'exe "Git! pull --rebase " input("branch: ")'],
-  \[' git checkout branch', 'exe "Git! checkout " input("branch: ")'],
-  \[' git fetch', 'Gfetch'],
-  \[' git merge', 'Gmerge'],
-  \[' git browse', 'Gbrowse'],
-  \[' git head', 'Gedit HEAD^'],
-  \[' git parent', 'edit %:h'],
-  \[' git log commit buffers', 'Glog --'],
-  \[' git log current file', 'Glog -- %'],
-  \[' git log last n commits', 'exe "Glog -" input("num: ")'],
-  \[' git log first n commits', 'exe "Glog --reverse -" input("num: ")'],
-  \[' git log until date', 'exe "Glog --until=" input("day: ")'],
-  \[' git log grep commits',  'exe "Glog --grep= " input("string: ")'],
-  \[' git log pickaxe',  'exe "Glog -S" input("string: ")'],
-  \[' git index', 'exe "Gedit " input("branchname\:filename: ")'],
-  \[' git mv', 'exe "Gmove " input("destination: ")'],
-  \[' git grep',  'exe "Ggrep " input("string: ")'],
-  \[' git prompt', 'exe "Git! " input("command: ")'],
-  \] " Append ' --' after log to get commit info commit buffers
-nnoremap <silent> <Leader>git :Unite -silent -buffer-name=git -start-insert menu:git<CR>
-"}}}
+  let g:fzf_files_options =
+  \ '--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'"'
+  " <C-p> or <C-t> to search files
+  nnoremap <silent> <C-t> :FZF -m<cr>
+  nnoremap <silent> <C-p> :FZF -m<cr>
+
+  nnoremap <silent> <Leader>ag :Ag <C-R><C-W><CR>
+  nnoremap <silent> <Leader>AG :Ag <C-R><C-A><CR>
+
+  " <M-p> for open buffers
+  nnoremap <silent> <M-p> :Buffers<cr>
+
+  " <M-S-p> for MRU
+  nnoremap <silent> <M-S-p> :History<cr>
+
+  " Use fuzzy completion relative filepaths across directory
+  imap <expr> <c-x><c-f> fzf#vim#complete#path('git ls-files $(git rev-parse --show-toplevel)')
+  imap <c-x><c-k> <plug>(fzf-complete-word)
+  " imap <c-x><c-f> <plug>(fzf-complete-path)
+  imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+  imap <c-x><c-l> <plug>(fzf-complete-line)
+
+  nmap <leader><tab> <plug>(fzf-maps-n)
+  xmap <leader><tab> <plug>(fzf-maps-x)
+  omap <leader><tab> <plug>(fzf-maps-o)
+
+  command! Plugs call fzf#run({
+    \ 'source':  map(sort(keys(g:plugs)), 'g:plug_home."/".v:val'),
+    \ 'options': '--delimiter / --nth -1',
+    \ 'down':    '~40%',
+    \ 'sink':    'Explore'})
+
+  " Better command history with q:
+  command! CmdHist call fzf#vim#command_history({'right': '40'})
+  nnoremap q: :CmdHist<CR>
+
+  " Better search history
+  command! QHist call fzf#vim#search_history({'right': '40'})
+  nnoremap q/ :QHist<CR>
+
+    " Close preview window
+  if exists('##CompleteDone')
+    au CompleteDone * pclose
+  else
+    au InsertLeave * if !pumvisible() && (!exists('*getcmdwintype') || empty(getcmdwintype())) | pclose | endif
+  endif
+
+  if executable('ag')
+    let &grepprg = 'ag --nogroup --nocolor --column'
+  else
+    let &grepprg = 'grep -rn $* *'
+  endif
+  command! -nargs=1 -bar Grep execute 'silent! grep! <q-args>' | redraw! | copen
+  " }}}
+else
+  " Unite: {{{
+  let g:unite_data_directory='~/.nvim/.cache/unite'
+  let g:unite_source_history_yank_enable=1
+  let g:unite_prompt='» '
+  let g:unite_source_rec_async_command =['ag', '--follow', '--nocolor', '--nogroup','--hidden', '-g', '', '--ignore', '.git', '--ignore', '*.png', '--ignore', 'lib']
+  " call unite#filters#matcher_default#use(['matcher_fuzzy'])
+  " call unite#filters#sorter_default#use(['sorter_rank'])
+  call unite#custom#source('file_rec,file_rec/async', 'matchers', ['converter_relative_word', 'matcher_fuzzy'])
+  nnoremap <silent> <leader>g  :<C-u>Unite grep:. -buffer-name=search-buffer<CR>
+  nnoremap <silent> <leader>r  :<C-u>UniteResume search-buffer<CR>
+  nnoremap <silent> <c-p> :Unite -auto-resize -start-insert file_rec/async<CR>
+  " }}}
+end
 
 " Vim JSON: {{{
 " don't hide quotes in json files

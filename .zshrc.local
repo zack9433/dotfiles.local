@@ -74,7 +74,13 @@ fi
 # [[ -s $BASE16_SHELL ]] && source $BASE16_SHELL
 
 # fuzzy search
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+if [ -f ~/.fzf.zsh ]; then
+  source ~/.fzf.zsh
+  # Setting ag as the default source for fzf
+  export FZF_DEFAULT_COMMAND='ag -g ""'
+  # To apply the command to CTRL-T as well
+  export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+fi
 
 # fix vim-tmux-navigater issue https://github.com/christoomey/vim-tmux-navigator/issues/61
 infocmp $TERM | sed 's/kbs=^[hH]/kbs=\\177/' > ~/.config/$TERM.terminfo

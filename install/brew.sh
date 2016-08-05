@@ -3,6 +3,7 @@
 if test ! "$(which brew)"; then
   echo "Installing homebrew"
   ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+  gem install coderay
 fi
 
 echo -e "\n\nInstalling homebrew packages..."
