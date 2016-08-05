@@ -704,6 +704,7 @@ if executable('fzf')
 
   let g:fzf_files_options =
   \ '--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'"'
+  let g:fzf_nvim_statusline = 0
   " <C-p> or <C-t> to search files
   nnoremap <silent> <C-t> :FZF -m<cr>
   nnoremap <silent> <C-p> :FZF -m<cr>
