@@ -59,6 +59,7 @@ Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
 
 " Utilities
 Plug 'mileszs/ack.vim'
+Plug 'dyng/ctrlsf.vim'
 Plug 'powerman/vim-plugin-AnsiEsc' " ansi escape sequences concealed, but highlighted as specified (conceal)
 Plug 'Yggdroot/indentLine', { 'on': 'IndentLinesEnable' }
 Plug 'Chiel92/vim-autoformat'
@@ -99,8 +100,9 @@ Plug 'ap/vim-css-color', { 'for': ['css','stylus','scss'] } " set the background
 Plug 'hail2u/vim-css3-syntax', { 'for': 'css' } " CSS3 syntax support
 Plug 'tpope/vim-markdown', { 'for': 'markdown' } " markdown support
 Plug 'tmhedberg/SimpylFold', { 'for': 'python' } " markdown support
-Plug 'ekalinin/Dockerfile.vim'
+Plug 'docker/docker', { 'rtp': 'contrib/syntax/vim' }
 Plug 'tmux-plugins/vim-tmux'
+Plug 'stephpy/vim-yaml', { 'for': ['yml', 'yaml'] }
 
 " All of your Plugins must be added before the following line
 call plug#end()
@@ -308,7 +310,7 @@ com! -bang Qa :qa
 augroup configgroup
   autocmd!
   autocmd FileType vim setlocal ts=2 sw=2 sts=2 fdc=1 foldmethod=marker foldlevel=0
-  autocmd FileType yaml setlocal ts=2 sts=2 sw=2 expandtab
+  autocmd FileType yaml,yml setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType make setlocal ts=8 sts=8 sw=8 noexpandtab
   autocmd FileType ruby setlocal ts=2 sts=2 sw=2 expandtab
   autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
@@ -329,6 +331,7 @@ augroup configgroup
   autocmd BufNewFile,BufRead .jshintrc set filetype=json
   autocmd BufNewFile,BufRead .eslintrc set filetype=json
   autocmd BufNewFile,BufRead *.es6 set filetype=javascript
+  autocmd BufNewFile,BufRead *.[Dd]ockerfile,Dockerfile.* set filetype=dockerfile
 
   " make quickfix windows take all the lower section of the screen
   " when there are multiple windows open
@@ -354,16 +357,25 @@ augroup END
 
 " Plugins setting {{{
 
+" ctrlsf.vim: {{{
+
+let g:ctrlsf_confirm_save=0
+
+" }}}
+
 " NERDTree: {{{
 
-let g:NERDTreeQuitOnOpen=1
+let g:NERDTreeQuitOnOpen=0
 let NERDTreeShowHidden=1
+let NERDTreeWinPos='right'
 let NERDTreeIgnore = ['\.js.map$']
 " expand to the path of the file in the current buffer
 nmap <silent> <leader>y :NERDTreeFind<cr>
 nmap <leader>nt :NERDTreeToggle<cr>
+autocmd vimenter * NERDTree
 augroup nerd_loader
   autocmd!
+  " autocmd BufEnter * :redraw!
   autocmd VimEnter * silent! autocmd! FileExplorer
   autocmd BufEnter,BufNew *
         \  if isdirectory(expand('<amatch>'))
@@ -373,7 +385,6 @@ augroup nerd_loader
 augroup END
 
 " }}}
-
 
 " deoplete-ternjs: {{{
 " Use deoplete.
@@ -614,11 +625,12 @@ let g:perl_fold = 1
 
 " Deoplete.nvim: {{{
 let g:deoplete#enable_at_startup = 1
+let g:deoplete#enable_refresh_always=1
 " }}}
 
 " Neomake: {{{
 let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_verbose=1
+let g:neomake_verbose=0
 let g:neomake_open_list=2
 let g:neomake_list_height=10
 let g:neomake_warning_sign = {
@@ -630,6 +642,18 @@ let g:neomake_error_sign = {
       \ 'texthl': 'ErrorMsg',
       \ }
 
+let g:neomake_javascript_eslint_maker = {
+    \ 'args': ['--no-color', '--format', 'compact', '--config', '~/eslintrc'],
+    \ 'errorformat': '%f: line %l\, col %c\, %m'
+    \ }
+" function! neomake#makers#ft#javascript#eslint()
+" 		return {
+" 				\ 'args': ['-f', 'compact'],
+" 				\ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
+" 				\ '%W%f: line %l\, col %c\, Warning - %m'
+" 				\ }
+" endfunction
+" autocmd! BufWritePost * Neomake
 autocmd FileType javascript :call NeomakeESlintChecker()
 au! BufEnter *.js call EnterNeomake()
 au! BufWritePost *.js call SaveNeomake()
@@ -729,6 +753,21 @@ if executable('fzf')
   xmap <leader><tab> <plug>(fzf-maps-x)
   omap <leader><tab> <plug>(fzf-maps-o)
 
+  " Customize fzf colors to match your color scheme
+  let g:fzf_colors =
+  \ { 'fg':      ['fg', 'Normal'],
+    \ 'bg':      ['bg', 'Normal'],
+    \ 'hl':      ['fg', 'Comment'],
+    \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+    \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+    \ 'hl+':     ['fg', 'Statement'],
+    \ 'info':    ['fg', 'PreProc'],
+    \ 'prompt':  ['fg', 'Conditional'],
+    \ 'pointer': ['fg', 'Exception'],
+    \ 'marker':  ['fg', 'Keyword'],
+    \ 'spinner': ['fg', 'Label'],
+    \ 'header':  ['fg', 'Comment'] }
+
   command! Plugs call fzf#run({
     \ 'source':  map(sort(keys(g:plugs)), 'g:plug_home."/".v:val'),
     \ 'options': '--delimiter / --nth -1',
@@ -743,6 +782,8 @@ if executable('fzf')
   command! QHist call fzf#vim#search_history({'right': '40'})
   nnoremap q/ :QHist<CR>
 
+  autocmd! FileType fzf tnoremap <buffer> <leader>q <c-c>
+
     " Close preview window
   if exists('##CompleteDone')
     au CompleteDone * pclose
@@ -751,7 +792,7 @@ if executable('fzf')
   endif
 
   if executable('ag')
-    let &grepprg = 'ag --nogroup --nocolor --column'
+    let &grepprg = 'ag --nogroup --nocolor --column --follow --hidden --ignore .git'
   else
     let &grepprg = 'grep -rn $* *'
   endif
