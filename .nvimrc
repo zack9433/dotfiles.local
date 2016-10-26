@@ -22,7 +22,7 @@ Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 
 " File explore
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }  | Plug 'ryanoasis/vim-devicons'
+Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' } "  | Plug 'ryanoasis/vim-devicons'
 
 " Tmux
 Plug 'christoomey/vim-tmux-navigator'
@@ -58,6 +58,7 @@ Plug 'vim-airline/vim-airline' " fancy statusline
 Plug 'vim-airline/vim-airline-themes' " themes for vim-airline
 
 " Utilities
+Plug 'jaawerth/neomake-local-eslint-first'
 Plug 'mileszs/ack.vim'
 Plug 'dyng/ctrlsf.vim'
 Plug 'powerman/vim-plugin-AnsiEsc' " ansi escape sequences concealed, but highlighted as specified (conceal)
@@ -103,6 +104,7 @@ Plug 'tmhedberg/SimpylFold', { 'for': 'python' } " markdown support
 Plug 'docker/docker', { 'rtp': 'contrib/syntax/vim' }
 Plug 'tmux-plugins/vim-tmux'
 Plug 'stephpy/vim-yaml', { 'for': ['yml', 'yaml'] }
+Plug 'nginx/nginx', { 'rtp': 'contrib/vim' }
 
 " All of your Plugins must be added before the following line
 call plug#end()
@@ -116,7 +118,9 @@ abbr tempalte template
 " Basic Settings: {{{
 filetype plugin indent on    " required
 syntax enable
-let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+if (has("termguicolors"))
+  set termguicolors
+endif
 let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 let mapleader = ","
 set background=dark
@@ -367,12 +371,12 @@ let g:ctrlsf_confirm_save=0
 
 let g:NERDTreeQuitOnOpen=0
 let NERDTreeShowHidden=1
-let NERDTreeWinPos='right'
-let NERDTreeIgnore = ['\.js.map$']
+" let NERDTreeWinPos='right'
+" let NERDTreeIgnore = ['\.js.map$']
 " expand to the path of the file in the current buffer
 nmap <silent> <leader>y :NERDTreeFind<cr>
 nmap <leader>nt :NERDTreeToggle<cr>
-autocmd vimenter * NERDTree
+" autocmd vimenter * NERDTree
 augroup nerd_loader
   autocmd!
   " autocmd BufEnter * :redraw!
@@ -625,14 +629,14 @@ let g:perl_fold = 1
 
 " Deoplete.nvim: {{{
 let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_refresh_always=1
+let g:deoplete#enable_refresh_always=0
 " }}}
 
 " Neomake: {{{
 let g:neomake_javascript_enabled_makers = ['eslint']
-let g:neomake_verbose=0
-let g:neomake_open_list=2
-let g:neomake_list_height=10
+" let g:neomake_verbose=0
+" let g:neomake_open_list=2
+" let g:neomake_list_height=10
 let g:neomake_warning_sign = {
       \ 'text': '✹',
       \ 'texthl': 'WarningMsg',
@@ -642,52 +646,21 @@ let g:neomake_error_sign = {
       \ 'texthl': 'ErrorMsg',
       \ }
 
-let g:neomake_javascript_eslint_maker = {
-    \ 'args': ['--no-color', '--format', 'compact', '--config', '~/eslintrc'],
-    \ 'errorformat': '%f: line %l\, col %c\, %m'
-    \ }
-" function! neomake#makers#ft#javascript#eslint()
-" 		return {
-" 				\ 'args': ['-f', 'compact'],
-" 				\ 'errorformat': '%E%f: line %l\, col %c\, Error - %m,' .
-" 				\ '%W%f: line %l\, col %c\, Warning - %m'
-" 				\ }
+autocmd! BufWritePost * Neomake
+" autocmd FileType javascript :call NeomakeESlintChecker()
+" au! BufEnter *.js call EnterNeomake()
+" au! BufWritePost *.js call SaveNeomake()
+" function! EnterNeomake()
+"   " don't show the loc-list when entering a buffer
+"   let g:neomake_open_list=0
+"   exe "Neomake eslint"
 " endfunction
-" autocmd! BufWritePost * Neomake
-autocmd FileType javascript :call NeomakeESlintChecker()
-au! BufEnter *.js call EnterNeomake()
-au! BufWritePost *.js call SaveNeomake()
-function! EnterNeomake()
-  " don't show the loc-list when entering a buffer
-  let g:neomake_open_list=0
-  exe "Neomake eslint"
-endfunction
 
-function! SaveNeomake()
-  " show the loc-list after saving
-  let g:neomake_open_list=2
-  exe "Neomake eslint"
-endfunction
-
-function! NeomakeESlintChecker()
-  let l:npm_bin = ''
-  let l:eslint = 'eslint'
-
-  if executable('npm-which')
-    let l:eslint = split(system('npm-which eslint'))[0]
-    return 0
-  endif
-
-  if executable('npm')
-    let l:npm_bin = split(system('npm bin'), '\n')[0]
-  endif
-
-  if strlen(l:npm_bin) && executable(l:npm_bin . '/eslint')
-    let l:eslint = l:npm_bin . '/eslint'
-  endif
-
-  let b:neomake_javascript_eslint_exe = l:eslint
-endfunction
+" function! SaveNeomake()
+"   " show the loc-list after saving
+"   let g:neomake_open_list=2
+"   exe "Neomake eslint"
+" endfunction
 
 nmap <Leader>lo :lopen<CR>      " open location window
 nmap <Leader>lc :lclose<CR>     " close location window
@@ -754,19 +727,19 @@ if executable('fzf')
   omap <leader><tab> <plug>(fzf-maps-o)
 
   " Customize fzf colors to match your color scheme
-  let g:fzf_colors =
-  \ { 'fg':      ['fg', 'Normal'],
-    \ 'bg':      ['bg', 'Normal'],
-    \ 'hl':      ['fg', 'Comment'],
-    \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-    \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-    \ 'hl+':     ['fg', 'Statement'],
-    \ 'info':    ['fg', 'PreProc'],
-    \ 'prompt':  ['fg', 'Conditional'],
-    \ 'pointer': ['fg', 'Exception'],
-    \ 'marker':  ['fg', 'Keyword'],
-    \ 'spinner': ['fg', 'Label'],
-    \ 'header':  ['fg', 'Comment'] }
+  " let g:fzf_colors =
+  " \ { 'fg':      ['fg', 'Normal'],
+  "   \ 'bg':      ['bg', 'Normal'],
+  "   \ 'hl':      ['fg', 'Comment'],
+  "   \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  "   \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  "   \ 'hl+':     ['fg', 'Statement'],
+  "   \ 'info':    ['fg', 'PreProc'],
+  "   \ 'prompt':  ['fg', 'Conditional'],
+  "   \ 'pointer': ['fg', 'Exception'],
+  "   \ 'marker':  ['fg', 'Keyword'],
+  "   \ 'spinner': ['fg', 'Label'],
+  "   \ 'header':  ['fg', 'Comment'] }
 
   command! Plugs call fzf#run({
     \ 'source':  map(sort(keys(g:plugs)), 'g:plug_home."/".v:val'),

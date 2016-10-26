@@ -1,5 +1,6 @@
 # source zplug
 source ~/.zplug/zplug
+zplug "zsh-users/zsh-syntax-highlighting", nice:10
 zplug "mafredri/zsh-async", on:sindresorhus/pure
 zplug "sindresorhus/pure", do:ln -sf "$ZPLUG_HOME/repos/sindresorhus/pure/pure.zsh" "$HOME/.oh-my-zsh/themes/pure.zsh-theme"
 zplug load
