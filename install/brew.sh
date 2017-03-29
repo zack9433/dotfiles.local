@@ -24,6 +24,7 @@ brew install nvm
 brew install markdown
 brew install pt
 brew install fzf
+brew install fasd
 # Install shell extensions
 /usr/local/opt/fzf/install
 

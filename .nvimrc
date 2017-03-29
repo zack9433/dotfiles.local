@@ -126,6 +126,12 @@ let mapleader = ","
 set background=dark
 " execute "set background=".$BACKGROUND
 colorscheme OceanicNext
+hi htmlArg gui=italic
+hi Comment gui=italic
+hi Type    gui=italic
+hi htmlArg cterm=italic
+hi Comment cterm=italic
+hi Type    cterm=italic
 " execute "colorscheme ".$THEME
 set conceallevel=0
 " not compatible with vi
