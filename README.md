@@ -2,8 +2,13 @@
 > My development environment settings.
 
 # Install
+- `chsh -s $(which zsh)`
 - `git clone https://github.com/thoughtbot/dotfiles.git ~/dotfiles`
-- `git clone https://github.com/zack9433/dotfiles.local.git ~/dotfiles.local`
+- `brew tap thoughtbot/formulae`
+- `brew install rcm`
+- `env RCRC=$HOME/dotfiles/rcrc rcup`
+- `rcup`
+- `git clone --recursive https://github.com/zack9433/dotfiles.local.git ~/dotfiles.local`
 - `cd ~/dotfiles.local && ./install.sh`
 
 # Terminal Setting
