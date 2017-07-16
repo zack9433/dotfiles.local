@@ -10,6 +10,7 @@ echo -e "\n\nInstalling homebrew packages..."
 echo "=============================="
 
 # cli tools
+brew install wget
 brew install tree
 
 # development tools
