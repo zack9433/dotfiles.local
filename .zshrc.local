@@ -2,7 +2,9 @@
 source ~/.zplug/init.zsh
 zplug "mafredri/zsh-async", on:sindresorhus/pure
 zplug "sindresorhus/pure", hook-build:ln -sf "$ZPLUG_HOME/repos/sindresorhus/pure/pure.zsh" "$HOME/.oh-my-zsh/themes/pure.zsh-theme"
-zplug "zsh-users/zsh-syntax-highlighting", defer:2
+zplug "zsh-users/zsh-completions"
+zplug "zsh-users/zsh-syntax-highlighting", defer:3
+zplug "zsh-users/zsh-autosuggestions", defer:2
 zplug load
 
 # Path to your oh-my-zsh installation.
