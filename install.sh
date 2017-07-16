@@ -23,7 +23,7 @@ fi
 echo "Configuring zsh as default shell"
 chsh -s "$(which zsh)"
 
-echo "Installing zsh plugins..."
+echo "installing zsh plugins..."
 zplug install && zplug load
 
 echo "Done."

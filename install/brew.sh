@@ -30,11 +30,9 @@ brew install fasd
 /usr/local/opt/fzf/install
 
 # install neovim
-brew install neovim/neovim/neovim
+brew install neovim
 
 defaults write com.microsoft.VSCode ApplePressAndHoldEnabled -bool false         # For VS Code
 defaults write com.microsoft.VSCodeInsiders ApplePressAndHoldEnabled -bool false # For VS Code Insider
 
 export PATH=/usr/local/share/python3:$PATH
-
-exit 0
