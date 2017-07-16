@@ -26,6 +26,7 @@ brew install markdown
 brew install pt
 brew install fzf
 brew install fasd
+brew install zsh-syntax-highlighting
 # Install shell extensions
 /usr/local/opt/fzf/install
 
