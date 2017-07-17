@@ -26,4 +26,7 @@ chsh -s "$(which zsh)"
 echo "installing zsh plugins..."
 zplug install && zplug load
 
+# prevent zsh compinit: insecure directories
+sudo chmod -R 755 /usr/local/share
+
 echo "Done."
