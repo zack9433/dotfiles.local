@@ -9,7 +9,8 @@
 - `env RCRC=$HOME/dotfiles/rcrc rcup`
 - `rcup`
 - `git clone --recursive https://github.com/zack9433/dotfiles.local.git ~/dotfiles.local`
-- `cd ~/dotfiles.local && ./install.sh`
+- `cd ~/dotfiles.local`
+- `./install.sh`
 
 # Terminal Setting
 Use iTerm3

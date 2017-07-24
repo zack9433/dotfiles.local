@@ -15,3 +15,6 @@ ln -sf "$DOTFILES_LOCAL/base16/shell" "$HOME/.config/base16-shell"
 
 # set zplug link
 ln -sf "$DOTFILES_LOCAL/zplug" "$HOME/.zplug"
+
+# set neovim link
+ln -sf "$DOTFILES_LOCAL/.nvimrc" "$HOME/.config/nvim/init.vim"

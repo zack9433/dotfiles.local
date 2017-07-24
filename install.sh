@@ -3,13 +3,13 @@
 echo "Start Installing..."
 echo "====================="
 
+source install/link.sh
+
 echo "Installing oh-my-zsh"
 sh -c "$(wget https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O -)"
 
 echo "Initializing submodule(s)"
-git submodule update --init --recursive
-
-source install/link.sh
+git submodule foreach --recursive git pull origin master
 
 if [ "$(uname)" == "Darwin" ]; then
     echo -e "\n\nRunning on OSX"
