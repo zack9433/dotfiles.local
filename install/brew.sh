@@ -27,6 +27,7 @@ brew install pt
 brew install fzf
 brew install fasd
 brew install zsh-syntax-highlighting
+brew install the_silver_searcher
 # Install shell extensions
 /usr/local/opt/fzf/install
 
