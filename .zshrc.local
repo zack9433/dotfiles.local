@@ -5,6 +5,7 @@ zplug "sindresorhus/pure", hook-build:ln -sf "$ZPLUG_HOME/repos/sindresorhus/pur
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting", defer:3
 zplug "zsh-users/zsh-autosuggestions", defer:2
+# zplug "dijitalmunky/nvm-auto", hook-build:sed -e 's/^plugins=(\(.*\))/plugins=(\1 nvm-auto)/' -i .pre-nvm-auto ~/.zshrc 
 zplug load
 
 # Path to your oh-my-zsh installation.

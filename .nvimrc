@@ -18,7 +18,8 @@ Plug 'Shougo/vimproc.vim', { 'do': 'make' } " interactive command execution in v
 " Plug 'Shougo/vimfiler.vim' | Plug 'ryanoasis/vim-devicons'
 
 " FZF
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug '/usr/local/opt/fzf' | Plug 'junegunn/fzf.vim'
 Plug 'junegunn/fzf.vim'
 
 " File explore
@@ -703,6 +704,16 @@ if executable('fzf')
   " FZF {{{
   if has('nvim')
     let $FZF_DEFAULT_OPTS .= ' --inline-info'
+  " Status line (neovim)
+  function! s:fzf_statusline()
+    " Override statusline as you like
+    highlight fzf1 ctermfg=161 ctermbg=251
+    highlight fzf2 ctermfg=23 ctermbg=251
+    highlight fzf3 ctermfg=237 ctermbg=251
+    setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
+  endfunction
+
+  autocmd! User FzfStatusLine call <SID>fzf_statusline()
   endif
 
   let g:fzf_files_options =
@@ -776,6 +787,7 @@ if executable('fzf')
     let &grepprg = 'grep -rn $* *'
   endif
   command! -nargs=1 -bar Grep execute 'silent! grep! <q-args>' | redraw! | copen
+
   " }}}
 else
   " Unite: {{{
