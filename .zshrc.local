@@ -91,3 +91,33 @@ eval "$(fasd --init auto)"
 # fix vim-tmux-navigater issue https://github.com/christoomey/vim-tmux-navigator/issues/61
 infocmp $TERM | sed 's/kbs=^[hH]/kbs=\\177/' > ~/.config/$TERM.terminfo
 tic ~/.config/$TERM.terminfo
+
+# go env setting
+eval "$(goenv init -)"
+export GOROOT=$HOME/.goenv/versions/1.10.0 
+export GOPATH=$HOME/go
+# export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+
+# place this after nvm initialization!
+autoload -U add-zsh-hook
+load-nvmrc() {
+  local node_version="$(nvm version)"
+  local nvmrc_path="$(nvm_find_nvmrc)"
+
+  if [ -n "$nvmrc_path" ]; then
+    local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
+
+    if [ "$nvmrc_node_version" = "N/A" ]; then
+      nvm install
+    elif [ "$nvmrc_node_version" != "$node_version" ]; then
+      nvm use
+    fi
+  elif [ "$node_version" != "$(nvm version default)" ]; then
+    echo "Reverting to nvm default version"
+    nvm use default
+  fi
+}
+add-zsh-hook chpwd load-nvmrc
+load-nvmrc
