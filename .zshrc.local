@@ -98,6 +98,9 @@ export GOROOT=$HOME/.goenv/versions/1.10.0
 export GOPATH=$HOME/go
 # export PATH=$PATH:$GOROOT/bin:$GOPATH/bin
 
+# rust env settin
+export PATH="$PATH:$HOME/.cargo/bin"
+
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 
 # place this after nvm initialization!
