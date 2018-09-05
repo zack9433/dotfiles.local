@@ -1,7 +1,8 @@
 # source zplug
-source ~/.zplug/init.zsh
-zplug "mafredri/zsh-async", on:sindresorhus/pure
-zplug "sindresorhus/pure", hook-build:ln -sf "$ZPLUG_HOME/repos/sindresorhus/pure/pure.zsh" "$HOME/.oh-my-zsh/themes/pure.zsh-theme"
+export ZPLUG_HOME=/usr/local/opt/zplug
+source $ZPLUG_HOME/init.zsh
+
+zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
 zplug "zsh-users/zsh-completions"
 zplug "zsh-users/zsh-syntax-highlighting", defer:3
 zplug "zsh-users/zsh-autosuggestions", defer:2
@@ -15,7 +16,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="pure"
+ZSH_THEME="spaceship"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
@@ -45,9 +46,6 @@ source $ZSH/oh-my-zsh.sh
 
 # ssh
 # export SSH_KEY_PATH="~/.ssh/dsa_id"
-
-# zsh-completions
-fpath=(/usr/local/share/zsh-completions $fpath)
 
 [ -z "$TMUX" ] && export TERM=xterm-256color-italic
 
@@ -124,3 +122,7 @@ load-nvmrc() {
 }
 add-zsh-hook chpwd load-nvmrc
 load-nvmrc
+
+# use pure theme for prompt
+# autoload -U promptinit; promptinit
+# prompt pure
