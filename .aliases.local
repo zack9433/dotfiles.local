@@ -66,3 +66,9 @@ if [ -n "${NVIM_LISTEN_ADDRESS+x}" ]; then
   alias v='nvr -O'
   alias t='nvr --remote-tab'
 fi
+
+# Alias for minikube
+alias mk="minikube"
+
+# Alias for kubectl
+alias kc="kubectl"
